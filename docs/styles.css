@@ -1,0 +1,319 @@
+/*
+  1. Prevent padding and border from affecting element width. (https://github.com/mozdevs/cssremedy/issues/4)
+  2. Remove default margins and padding
+  3. Reset all borders.
+*/
+
+*,
+::after,
+::before,
+::backdrop,
+::file-selector-button {
+  box-sizing: border-box; /* 1 */
+  margin: 0; /* 2 */
+  padding: 0; /* 2 */
+  border: 0 solid; /* 3 */
+}
+
+/*
+  1. Use a consistent sensible line-height in all browsers.
+  2. Prevent adjustments of font size after orientation changes in iOS.
+  3. Use a more readable tab size.
+  4. Use the user's configured `sans` font-family by default.
+  5. Use the user's configured `sans` font-feature-settings by default.
+  6. Use the user's configured `sans` font-variation-settings by default.
+  7. Disable tap highlights on iOS.
+*/
+
+html,
+:host {
+  line-height: 1.5; /* 1 */
+  -webkit-text-size-adjust: 100%; /* 2 */
+  tab-size: 4; /* 3 */
+  font-family: 
+    "Inter",
+    ui-sans-serif,
+    system-ui,
+    sans-serif,
+    'Apple Color Emoji',
+    'Segoe UI Emoji',
+    'Segoe UI Symbol',
+    'Noto Color Emoji'
+  ; /* 4 */
+  font-feature-settings: normal; /* 5 */
+  font-variation-settings: normal; /* 6 */
+  -webkit-tap-highlight-color: transparent; /* 7 */
+}
+
+/*
+  Reset links to optimize for opt-in styling instead of opt-out.
+*/
+
+a {
+  color: inherit;
+  -webkit-text-decoration: inherit;
+  text-decoration: inherit;
+}
+
+/* ====================================== */
+
+:root {
+  --c-y: #f9d849;
+  --c-p: #ba87bb;
+  --c-g: #74985d;
+  --c-s: #c5947c;
+  --c-v: #aadafa;
+  --c-c: #679ad1;
+  --c-d: #cccccc;
+  --c-n: #70c5b0;
+  
+  --text-primary: #fff;
+  --text-secondary: #C2E6FF;
+
+  --border-primary: #0c3154;
+  --border-secondary: #0e2a44;
+
+  --bg-primary: #0D1520;
+  --bg-secondary: #111927;
+
+  --accent-primary: #0090FF;
+
+  --container-py: 1rem;
+  --container-px: 1rem;
+
+  --header-height: 5rem; /* 80px */
+}
+
+::selection {
+  background-color: #70B8FF;
+  color: #000;
+}
+
+html, body {
+  background-color: var(--bg-primary);
+  color: var(--text-primary);
+}
+
+#app {
+  min-height: 18.375rem; /* 294px */
+  margin: 2rem auto;
+}
+
+.text-secondary {
+  color: var(--text-secondary);
+}
+
+header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  position: sticky;
+  top: 0;
+  backdrop-filter: blur(24px);
+  border-end-end-radius: 1.5rem;
+  border-end-start-radius: 1.5rem;
+  height: var(--header-height);
+}
+
+h2 {
+  scroll-margin-top: var(--header-height);
+}
+
+.container {
+  max-width: 960px;
+  padding: var(--container-py) var(--container-px);
+  margin: 0 auto;
+}
+
+/* Code highlighter */
+
+.syntax {
+  border-radius: 1rem;
+  border: 1px solid var(--border-primary);
+  background-color: var(--bg-secondary);
+  margin: 1rem 0 3rem;
+}
+
+.syntax .header {
+  padding: 0.75rem 1.5rem;
+  border-bottom: 1px solid var(--border-secondary);
+  color: var(--c-d);
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  user-select: none;
+}
+
+/*
+  1. Use the user's configured `mono` font-family by default.
+  2. Use the user's configured `mono` font-feature-settings by default.
+  3. Use the user's configured `mono` font-variation-settings by default.
+  4. Correct the odd `em` font sizing in all browsers.
+*/
+
+code {
+  font-family: 
+    "Geist Mono",
+    ui-monospace,
+    SFMono-Regular,
+    Menlo,
+    Monaco,
+    Consolas,
+    'Liberation Mono',
+    'Courier New',
+    monospace; /* 1 */
+  font-optical-sizing: auto;
+  font-weight: 400;
+  font-style: normal;
+  font-size: 1em; /* 4 */
+}
+
+.syntax code {
+  padding: 1rem 1.5rem;
+  display: block;
+  overflow-x: auto;
+}
+
+.syntax code .line {
+  display: block;
+  min-height: 1lh;
+  white-space: pre;
+  color: var(--c-d);
+}
+
+.select-all {
+  user-select: all;
+}
+
+.select-none {
+  user-select: none;
+}
+
+/* Playground */
+
+.controls {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  grid-template-rows: auto auto;
+  gap: 1rem;
+  grid-row-gap: 1rem;
+  padding: 0 var(--container-px);
+}
+
+.controls .column {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  /* border: 1px solid #ccc; */
+}
+
+.controls .column p {
+  font-weight: 500;
+}
+
+.cookie-btn {
+  grid-column: 1 / -1; /* занимает всю ширину */
+  /* margin: 0 0.75rem; */
+  /* background-color: rgb(194, 133, 133); */
+}
+
+.controls button {
+  font: inherit; /* 1 */
+  font-feature-settings: inherit; /* 1 */
+  font-variation-settings: inherit; /* 1 */
+  letter-spacing: inherit; /* 1 */
+  color: inherit; /* 1 */
+  background-color: var(--bg-primary); /* 3 */
+  opacity: 1; /* 4 */
+  appearance: button;
+
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 1.5rem;
+  border-radius: 0.75rem;
+  border: 1px solid var(--border-secondary);
+  transition: 0.25s ease-in-out;
+}
+
+.controls button:hover, .controls button:focus-visible {
+  outline: none;
+  /* background-color: var(--color-3); */
+  box-shadow: 0 0 0 1px var(--accent-primary), 0 0 0 2px var(--accent-primary);
+}
+
+.controls button:active {
+  transform: translateY(2px);
+}
+
+svg {
+  display: block;
+  vertical-align: middle;
+}
+
+.table {
+  overflow-x: auto;
+  margin: 1rem auto;
+  border-radius: 1rem;
+  border: 1px solid var(--border-primary);
+}
+
+table {
+  text-indent: 0;
+  border-collapse: separate;
+  border-spacing: 0;
+  overflow: hidden;
+  width: 100%;
+  background-color: var(--bg-secondary);
+}
+
+table th {
+  background-color: var(--bg-primary);
+  font-weight: 500;
+  color: var(--text-secondary);
+  user-select: none;
+}
+
+table th, table td {
+  padding: 1rem 0.5rem 1rem 1.5rem;
+  text-align: left;
+  border-bottom: 1px solid var(--border-secondary);
+  width: 42%;
+}
+
+table th:first-child, table td:first-child {
+  width: auto;
+}
+
+table td code {
+  border: 1px solid var(--border-primary);
+  padding: 0.125rem 0.25rem;
+  border-radius: 0.25rem;
+  user-select: all;
+  font-size: 0.825rem;
+}
+
+table td p {
+  margin-top: 0.5rem;
+}
+
+table tr:last-child td {
+  border: none;
+}
+
+footer {
+  display: flex;
+  justify-content: space-between;
+  text-align: center;
+  color: var(--text-secondary);
+  margin: 3rem auto !important;
+  /* opacity: 0.7; */
+}
+
+footer a {
+  /* text-decoration: wavy;
+  text-decoration-line: underline;
+  text-decoration-color: var(--accent-primary);
+  text-underline-offset: 4px; */
+}
