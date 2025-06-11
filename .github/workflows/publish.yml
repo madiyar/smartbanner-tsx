@@ -1,0 +1,41 @@
+name: Publish to NPM
+
+on:
+  push:
+    branches: [ main, next ]
+    paths-ignore:
+      - 'docs/**'
+      - 'README.md'
+      - 'vite.config.ts'
+
+permissions:
+  contents: write
+  issues: write
+  pull-requests: write
+
+jobs:
+  publish:
+    runs-on: ubuntu-latest
+
+    steps:
+    - name: Checkout repo
+      uses: actions/checkout@v4
+
+    - name: Setup Node.js
+      uses: actions/setup-node@v3
+      with:
+        node-version: 20
+
+    - name: Install dependencies with pnpm
+      run: |
+        npm install -g pnpm
+        pnpm install
+
+    - name: Build library
+      run: pnpm run build
+  
+    - name: Release
+      run: pnpm run semantic-release
+      env:
+        NPM_TOKEN: ${{ secrets.NPM_TOKEN }}
+        GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
