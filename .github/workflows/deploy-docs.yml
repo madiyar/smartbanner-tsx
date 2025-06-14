@@ -25,6 +25,9 @@ jobs:
         npm install -g pnpm
         pnpm install
 
+    - name: Biome format & linter
+      run: pnpm run format
+
     - name: Build docs
       run: pnpm run build:docs
 

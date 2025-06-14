@@ -10,7 +10,7 @@
     "noImplicitAny": true,
     "outDir": "dist",
     "strictNullChecks": true,
-    "skipLibCheck": true,
+    "skipLibCheck": true
   },
   "include": ["src/**/*"],
   "exclude": ["node_modules"]

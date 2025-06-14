@@ -1,9 +1,9 @@
-import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
+import { defineConfig } from "vite";
 
 export default defineConfig(({ command }) => ({
   root: "docs",
-  base: command === "build" ? '/smartbanner-tsx/' : "/",
+  base: command === "build" ? "/smartbanner-tsx/" : "/",
   build: {
     outDir: "../build",
     emptyOutDir: true,

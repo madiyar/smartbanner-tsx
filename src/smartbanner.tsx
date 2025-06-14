@@ -1,14 +1,23 @@
 import React from "react";
 import { createPortal } from "react-dom";
 import { useUserAgent } from "./use-useragent";
-import { cookie, default_meta, default_translations, defaultStoreLang, html, iconsRels, is_client, isStandalone } from "./utils";
-import { Platform, SmartBannerProps } from "./types";
+import {
+  cookie,
+  default_meta,
+  default_translations,
+  defaultStoreLang,
+  html,
+  iconsRels,
+  is_client,
+  isStandalone,
+} from "./utils";
+import type { Platform, SmartBannerProps } from "./types";
 
 enum ClassNames {
   SHOW = "smartbanner-show",
   TOP = "smartbanner-margin-top",
   BOTTOM = "smartbanner-margin-bottom",
-};
+}
 
 export const SmartBanner: React.FC<SmartBannerProps> = ({
   daysHidden = 15,
@@ -30,7 +39,10 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
   className = "",
 }) => {
   const agent = useUserAgent();
-  const t = React.useMemo(() => ({ ...default_translations, ...translations }), [translations]);
+  const t = React.useMemo(
+    () => ({ ...default_translations, ...translations }),
+    [translations],
+  );
   const [isShow, setIsShow] = React.useState(false);
 
   const device = React.useMemo<Platform | undefined>(() => {
@@ -45,8 +57,10 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
     }
 
     if (
-      agent?.os?.name === "iOS" && 
-      (ignoreIosVersion || parseInt(agent?.os?.version ?? "0", 10) < 6 || agent?.browser?.name !== "Mobile Safari")
+      agent?.os?.name === "iOS" &&
+      (ignoreIosVersion ||
+        Number.parseInt(agent?.os?.version ?? "0", 10) < 6 ||
+        agent?.browser?.name !== "Mobile Safari")
     ) {
       return "ios";
     }
@@ -60,17 +74,19 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
     }
 
     const metaTag = window.document.querySelector(
-      `meta[name="${meta[device]}"]`
+      `meta[name="${meta[device]}"]`,
     );
 
     if (!metaTag) {
       return "";
     }
 
-    const content = /app-id=([^\s,]+)/.exec(metaTag.getAttribute("content") || "");
+    const content = /app-id=([^\s,]+)/.exec(
+      metaTag.getAttribute("content") || "",
+    );
 
-    return content && content[1] ? content[1] : "";
-  }, [device, meta.android, meta.ios]);
+    return content?.[1] || "";
+  }, [device, meta]);
 
   React.useEffect(() => {
     if (!html) return;
@@ -101,7 +117,7 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
     if (!is_client || !device || !appID) {
       handleShow(false);
       return;
-    };
+    }
 
     // is pwa
     if (isStandalone()) {
@@ -111,23 +127,23 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
 
     // user dismissed banner or installed app
     handleShow(!(cookie.closed.get() || cookie.installed.get()));
-  }, [device, appID]);
+  }, [device, appID, handleShow]);
 
   const handleClose = React.useCallback(() => {
     handleShow(false);
     cookie.closed.set(daysHidden);
     onClose?.();
-  }, [daysHidden, onClose]);
+  }, [daysHidden, onClose, handleShow]);
 
   const handleInstall = React.useCallback(() => {
     handleShow(false);
     cookie.installed.set(daysReminder);
     onInstall?.();
-  }, [daysReminder, onInstall]);
+  }, [daysReminder, onInstall, handleShow]);
 
   const iconUrl = React.useMemo(() => {
     if (!is_client || !device || !iconsRels[device]?.length) return "";
-    
+
     for (const rel of iconsRels[device]) {
       const element = window.document.querySelector(`link[rel="${rel}"]`);
 
@@ -145,11 +161,16 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
     if (!appID) return url[device] || "#";
 
     if (device === "ios") {
-      return url.ios || `https://itunes.apple.com/${storeLang || "us"}/app/id${appID}`;
+      return (
+        url.ios ||
+        `https://itunes.apple.com/${storeLang || "us"}/app/id${appID}`
+      );
     }
 
     if (device === "android") {
-      return url.android || `http://play.google.com/store/apps/details?id=${appID}`;
+      return (
+        url.android || `http://play.google.com/store/apps/details?id=${appID}`
+      );
     }
 
     return "#";
@@ -164,7 +185,7 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
     const storeText = t[`store_${device}`]?.trim();
 
     if (priceText && storeText) {
-      return `${priceText} - ${storeText}`
+      return `${priceText} - ${storeText}`;
     }
 
     return priceText || storeText || "";
@@ -175,12 +196,22 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
   }
 
   const content = (
-    <div className={`smartbanner smartbanner-${device} smartbanner-${placement} ${className}`}>
+    <div
+      className={`smartbanner smartbanner-${device} smartbanner-${placement} ${className}`}
+    >
       <div className="smartbanner-container">
-        <button type="button" className="smartbanner-close" aria-label="close" onClick={handleClose}>
+        <button
+          type="button"
+          className="smartbanner-close"
+          aria-label="close"
+          onClick={handleClose}
+        >
           &times;
         </button>
-        <span className="smartbanner-icon" style={{backgroundImage: `url(${iconUrl})`}} />
+        <span
+          className="smartbanner-icon"
+          style={{ backgroundImage: `url(${iconUrl})` }}
+        />
         <div className="smartbanner-info">
           <div className="smartbanner-title">{title}</div>
           <div className="smartbanner-author">{author}</div>
@@ -194,9 +225,7 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
             onClick={handleInstall}
             className="smartbanner-button"
           >
-            <span className="smartbanner-button-text">
-              {t.button}
-            </span>
+            <span className="smartbanner-button-text">{t.button}</span>
           </a>
         </div>
       </div>
@@ -204,7 +233,9 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
   );
 
   if (withPortal) {
-    const container = portalTargetId ? document.getElementById(portalTargetId) : null;
+    const container = portalTargetId
+      ? document.getElementById(portalTargetId)
+      : null;
     return createPortal(content, container || document.body);
   }
 

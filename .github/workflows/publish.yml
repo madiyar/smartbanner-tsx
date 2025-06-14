@@ -31,9 +31,12 @@ jobs:
         npm install -g pnpm
         pnpm install
 
+    - name: Biome format & linter
+      run: pnpm run format
+
     - name: Build library
       run: pnpm run build
-  
+
     - name: Release
       run: pnpm run semantic-release
       env:

@@ -2,6 +2,7 @@ import React from "react";
 import ReactDOM from "react-dom/client";
 import App from "./app";
 
-ReactDOM
-  .createRoot(document.getElementById("app")!)
-  .render(<App />);
+const rootElement = document.getElementById("app");
+if (!rootElement) throw new Error("Failed to find the root element");
+
+ReactDOM.createRoot(rootElement).render(<App />);

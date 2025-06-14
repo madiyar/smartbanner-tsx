@@ -30,16 +30,8 @@ html,
   line-height: 1.5; /* 1 */
   -webkit-text-size-adjust: 100%; /* 2 */
   tab-size: 4; /* 3 */
-  font-family: 
-    "Inter",
-    ui-sans-serif,
-    system-ui,
-    sans-serif,
-    'Apple Color Emoji',
-    'Segoe UI Emoji',
-    'Segoe UI Symbol',
-    'Noto Color Emoji'
-  ; /* 4 */
+  font-family: "Inter", ui-sans-serif, system-ui, sans-serif,
+    "Apple Color Emoji", "Segoe UI Emoji", "Segoe UI Symbol", "Noto Color Emoji"; /* 4 */
   font-feature-settings: normal; /* 5 */
   font-variation-settings: normal; /* 6 */
   -webkit-tap-highlight-color: transparent; /* 7 */
@@ -66,17 +58,17 @@ a {
   --c-c: #679ad1;
   --c-d: #cccccc;
   --c-n: #70c5b0;
-  
+
   --text-primary: #fff;
-  --text-secondary: #C2E6FF;
+  --text-secondary: #c2e6ff;
 
   --border-primary: #0c3154;
   --border-secondary: #0e2a44;
 
-  --bg-primary: #0D1520;
+  --bg-primary: #0d1520;
   --bg-secondary: #111927;
 
-  --accent-primary: #0090FF;
+  --accent-primary: #0090ff;
 
   --container-py: 1rem;
   --container-px: 1rem;
@@ -85,11 +77,12 @@ a {
 }
 
 ::selection {
-  background-color: #70B8FF;
+  background-color: #70b8ff;
   color: #000;
 }
 
-html, body {
+html,
+body {
   background-color: var(--bg-primary);
   color: var(--text-primary);
 }
@@ -152,16 +145,8 @@ h2 {
 */
 
 code {
-  font-family: 
-    "Geist Mono",
-    ui-monospace,
-    SFMono-Regular,
-    Menlo,
-    Monaco,
-    Consolas,
-    'Liberation Mono',
-    'Courier New',
-    monospace; /* 1 */
+  font-family: "Geist Mono", ui-monospace, SFMono-Regular, Menlo, Monaco,
+    Consolas, "Liberation Mono", "Courier New", monospace; /* 1 */
   font-optical-sizing: auto;
   font-weight: 400;
   font-style: normal;
@@ -237,7 +222,8 @@ code {
   transition: 0.25s ease-in-out;
 }
 
-.controls button:hover, .controls button:focus-visible {
+.controls button:hover,
+.controls button:focus-visible {
   outline: none;
   /* background-color: var(--color-3); */
   box-shadow: 0 0 0 1px var(--accent-primary), 0 0 0 2px var(--accent-primary);
@@ -275,14 +261,16 @@ table th {
   user-select: none;
 }
 
-table th, table td {
+table th,
+table td {
   padding: 1rem 0.5rem 1rem 1.5rem;
   text-align: left;
   border-bottom: 1px solid var(--border-secondary);
   width: 42%;
 }
 
-table th:first-child, table td:first-child {
+table th:first-child,
+table td:first-child {
   width: auto;
 }
 

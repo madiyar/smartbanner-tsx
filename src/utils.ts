@@ -1,5 +1,5 @@
 import Cookies from "js-cookie";
-import { Platform, SmartBannerProps } from "./types";
+import type { Platform, SmartBannerProps } from "./types";
 
 export const is_client = typeof window !== "undefined";
 export const html = is_client ? document.documentElement : null;
@@ -9,7 +9,9 @@ export const default_meta: NonNullable<SmartBannerProps["meta"]> = {
   android: "google-play-app",
 };
 
-export const defaultStoreLang = (): NonNullable<SmartBannerProps["storeLang"]> => {
+export const defaultStoreLang = (): NonNullable<
+  SmartBannerProps["storeLang"]
+> => {
   if (is_client) {
     const lang = window.navigator.language;
     return lang.includes("-") ? lang.split("-")[1].toLowerCase() : "us";
@@ -18,7 +20,9 @@ export const defaultStoreLang = (): NonNullable<SmartBannerProps["storeLang"]> =
   return "us";
 };
 
-export const default_translations: NonNullable<SmartBannerProps["translations"]> = {
+export const default_translations: NonNullable<
+  SmartBannerProps["translations"]
+> = {
   button: "View",
   price_ios: "Free",
   price_android: "Free",
@@ -27,10 +31,7 @@ export const default_translations: NonNullable<SmartBannerProps["translations"]>
 };
 
 export const iconsRels: Record<Platform, string[]> = {
-  ios: [
-    "apple-touch-icon",
-    "apple-touch-icon-precomposed",
-  ],
+  ios: ["apple-touch-icon", "apple-touch-icon-precomposed"],
   android: [
     "android-touch-icon",
     "apple-touch-icon",
@@ -38,9 +39,14 @@ export const iconsRels: Record<Platform, string[]> = {
   ],
 };
 
+type Standalone = Navigator & { standalone?: boolean };
+
 export const isStandalone = () => {
   if (is_client) {
-    return !!(window.navigator as any)?.standalone || window.matchMedia?.("(display-mode: standalone)")?.matches;
+    return (
+      !!(window.navigator as Standalone)?.standalone ||
+      window.matchMedia?.("(display-mode: standalone)")?.matches
+    );
   }
 
   return false;
@@ -49,11 +55,12 @@ export const isStandalone = () => {
 const createCookieManager = (key: string) => {
   return {
     get: () => Cookies.get(key),
-    set: (days: number) => Cookies.set(key, "true", { path: "/", expires: days }),
-  }
+    set: (days: number) =>
+      Cookies.set(key, "true", { path: "/", expires: days }),
+  };
 };
 
 export const cookie = {
   closed: createCookieManager("smartbanner-closed"),
   installed: createCookieManager("smartbanner-installed"),
-}
+};

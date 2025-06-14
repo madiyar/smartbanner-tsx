@@ -1,8 +1,8 @@
 import React from "react";
 
 interface UAProps {
-  os: { name: string, version: string },
-  browser: { name: string },
+  os: { name: string; version: string };
+  browser: { name: string };
 }
 
 export function useUserAgent() {
@@ -18,7 +18,7 @@ export function useUserAgent() {
         console.error("Failed to load ua-parser-js:", error);
       }
     };
-    
+
     loadParser();
   }, []);
 

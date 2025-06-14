@@ -1,7 +1,12 @@
-import React from "react";
+import type React from "react";
 
 export type Platform = "ios" | "android";
-type TKeys = "button" | "price_ios" | "price_android" | "store_ios" | "store_android";
+type TKeys =
+  | "button"
+  | "price_ios"
+  | "price_android"
+  | "store_ios"
+  | "store_android";
 
 export interface SmartBannerProps {
   /**
@@ -23,7 +28,7 @@ export interface SmartBannerProps {
    *   price_ios: "Free",
    *   price_android: "Free",
    *   store_ios: "On the App Store",
-   *   store_android: "In Google Play" 
+   *   store_android: "In Google Play"
    * }
    * ```
    */
