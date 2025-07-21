@@ -5,7 +5,9 @@
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
-  "files": ["./dist"],
+  "files": [
+    "./dist"
+  ],
   "exports": {
     ".": {
       "import": "./dist/index.mjs",
@@ -18,7 +20,9 @@
     "build:docs": "vite build",
     "dev": "vite",
     "semantic-release": "semantic-release",
-    "format": "biome ci"
+    "format": "biome ci",
+    "test": "vitest",
+    "test:run": "vitest run"
   },
   "keywords": [
     "react",
@@ -58,12 +62,14 @@
     "@types/react": "^18.3.23",
     "@types/react-dom": "^18.3.7",
     "@vitejs/plugin-react": "^4.5.0",
+    "jsdom": "^26.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "semantic-release": "^24.2.5",
     "tsup": "^8.5.0",
     "typescript": "^5.8.3",
-    "vite": "^6.3.5"
+    "vite": "^6.3.5",
+    "vitest": "^3.2.4"
   },
   "dependencies": {
     "js-cookie": "^3.0.5",
