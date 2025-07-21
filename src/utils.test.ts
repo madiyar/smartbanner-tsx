@@ -158,10 +158,10 @@ describe("utils", () => {
   describe("cookie", () => {
     beforeEach(() => {
       // Clear all cookies before each test
-      document.cookie.split(";").forEach((cookie) => {
+      for (const cookie of document.cookie.split(";")) {
         const [name] = cookie.split("=");
         document.cookie = `${name.trim()}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
-      });
+      }
     });
 
     it("should have closed cookie manager", () => {
