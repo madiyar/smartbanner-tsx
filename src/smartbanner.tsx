@@ -41,7 +41,7 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
   const agent = useUserAgent();
   const t = React.useMemo(
     () => ({ ...default_translations, ...translations }),
-    [translations]
+    [translations],
   );
   const [isShow, setIsShow] = React.useState(false);
 
@@ -74,7 +74,7 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
     }
 
     const metaTag = window.document.querySelector(
-      `meta[name="${meta[device]}"]`
+      `meta[name="${meta[device]}"]`,
     );
 
     if (!metaTag) {
@@ -82,7 +82,7 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
     }
 
     const content = /app-id=([^\s,]+)/.exec(
-      metaTag.getAttribute("content") || ""
+      metaTag.getAttribute("content") || "",
     );
 
     return content?.[1] || "";
