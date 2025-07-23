@@ -98,6 +98,12 @@ export interface SmartBannerProps {
   onInstall?: () => void;
 
   /**
+   * Disable HTML margin.
+   * @default false
+   */
+  disableHtmlMargin?: boolean;
+
+  /**
    * Whether to render the banner using a React Portal.
    * @default true
    */

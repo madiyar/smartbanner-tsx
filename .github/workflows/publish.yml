@@ -34,6 +34,9 @@ jobs:
     - name: Biome format & linter
       run: pnpm run format
 
+    - name: Run tests
+      run: pnpm run test:run
+
     - name: Build library
       run: pnpm run build
 

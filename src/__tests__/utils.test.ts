@@ -7,7 +7,7 @@ import {
   iconsRels,
   isStandalone,
   cookie,
-} from "./utils";
+} from "../utils";
 
 describe("utils", () => {
   describe("is_client", () => {

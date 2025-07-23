@@ -33,6 +33,7 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
   ignoreIosVersion = false,
   onClose,
   onInstall,
+  disableHtmlMargin = false,
   withPortal = true,
   portalTargetId,
   target,
@@ -91,8 +92,10 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
   React.useEffect(() => {
     if (!html) return;
 
-    html.classList.toggle(ClassNames.TOP, placement === "top");
-    html.classList.toggle(ClassNames.BOTTOM, placement === "bottom");
+    if (!disableHtmlMargin) {
+      html.classList.toggle(ClassNames.TOP, placement === "top");
+      html.classList.toggle(ClassNames.BOTTOM, placement === "bottom");
+    }
 
     // return () => {
     //   if (!html) return;
@@ -103,7 +106,7 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
     //     ClassNames.BOTTOM
     //   );
     // }
-  }, [placement]);
+  }, [placement, disableHtmlMargin]);
 
   const handleShow = React.useCallback((show: boolean) => {
     if (html) {
