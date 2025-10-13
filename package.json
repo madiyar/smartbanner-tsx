@@ -73,7 +73,7 @@
   },
   "dependencies": {
     "js-cookie": "^3.0.5",
-    "ua-parser-js": "^2.0.3"
+    "ua-parser-js": "^2.0.6"
   },
   "packageManager": "pnpm@9.4.0"
 }
