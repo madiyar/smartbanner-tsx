@@ -112,11 +112,13 @@ const createCookieManager = (key: string) => ({
     if (!is_client) return;
 
     const maxAge = Math.max(0, Math.round(days * 24 * 60 * 60));
+    // biome-ignore lint/suspicious/noDocumentCookie: the Cookie Store API is async and missing in older Safari.
     document.cookie = `${key}=true; path=/; max-age=${maxAge}; SameSite=Lax`;
   },
   remove: () => {
     if (!is_client) return;
 
+    // biome-ignore lint/suspicious/noDocumentCookie: the Cookie Store API is async and missing in older Safari.
     document.cookie = `${key}=; path=/; max-age=0; SameSite=Lax`;
   },
 });

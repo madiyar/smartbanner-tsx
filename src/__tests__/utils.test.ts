@@ -211,6 +211,7 @@ describe("utils", () => {
       // Clear all cookies before each test
       for (const cookie of document.cookie.split(";")) {
         const [name] = cookie.split("=");
+        // biome-ignore lint/suspicious/noDocumentCookie: the library itself uses document.cookie.
         document.cookie = `${name.trim()}=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;`;
       }
     });
