@@ -7,6 +7,8 @@ export default {
     [
       "@semantic-release/commit-analyzer",
       {
+        // Understands both `feat!: ...` and a `BREAKING CHANGE:` footer.
+        preset: "conventionalcommits",
         releaseRules: [
           // Demo and docs changes never publish a new library version.
           { scope: "demo", release: false },
@@ -16,7 +18,7 @@ export default {
         ],
       },
     ],
-    "@semantic-release/release-notes-generator",
+    ["@semantic-release/release-notes-generator", { preset: "conventionalcommits" }],
     "@semantic-release/npm",
     "@semantic-release/github",
   ],
