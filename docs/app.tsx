@@ -2,6 +2,7 @@ import React from "react";
 import { SmartBanner } from "smartbanner-tsx";
 import { Playground } from "./components/playground";
 import { PropsTable } from "./components/props-table";
+import { Toc } from "./components/toc";
 import { CodeBlock, CopyButton, Icon, type IconName } from "./components/ui";
 import iconUrl from "./icon.webp";
 import { CSS_VARS, FAQ, HOOK_FIELDS } from "./lib/api";
@@ -319,222 +320,228 @@ export default function App() {
           ))}
         </section>
 
-        <div className="doc">
-          <section>
-            <Heading id="getting-started">Getting started</Heading>
-            <p>
-              The banner shows on Android and on iOS browsers that don't have
-              Apple's native Smart App Banner (Chrome, Firefox, in-app
-              browsers). It stays hidden in installed PWAs and after the user
-              closes it.
-            </p>
-
-            <Heading id="installation" level={3}>
-              Installation
-            </Heading>
-            <p>React 18 or 19 is the only peer dependency.</p>
-            <InstallTabs />
-
-            <Heading id="app-details" level={3}>
-              Add your app details
-            </Heading>
-            <p>
-              Put your App Store and Google Play IDs in meta tags, like for
-              Apple's own banner. The icon is taken from{" "}
-              <code>apple-touch-icon</code>.
-            </p>
-            <CodeBlock title="index.html" code={META_SNIPPET} />
-
-            <Heading id="usage" level={3}>
-              Render the banner
-            </Heading>
-            <CodeBlock title="App.tsx" code={USAGE_SNIPPET} />
-
-            <div className="tip">
-              <p className="tip-title">No meta tags?</p>
+        <div className="doc-layout">
+          <div className="doc">
+            <section>
+              <Heading id="getting-started">Getting started</Heading>
               <p>
-                Pass the app IDs and icon as props instead. Props win over meta
-                tags when both are set.
+                The banner shows on Android and on iOS browsers that don't have
+                Apple's native Smart App Banner (Chrome, Firefox, in-app
+                browsers). It stays hidden in installed PWAs and after the user
+                closes it.
               </p>
-              <CodeBlock title="App.tsx" code={APPID_SNIPPET} />
-            </div>
-          </section>
 
-          <section>
-            <Heading id="playground">Playground</Heading>
-            <p>
-              Change the content, theme and behavior. The code updates as you go
-              — copy it when it looks right.
-            </p>
-            <Playground />
-          </section>
+              <Heading id="installation" level={3}>
+                Installation
+              </Heading>
+              <p>React 18 or 19 is the only peer dependency.</p>
+              <InstallTabs />
 
-          <section>
-            <Heading id="customization">Customization</Heading>
-            <p>
-              Start with props, restyle with CSS variables, or take over the
-              markup completely.
-            </p>
+              <Heading id="app-details" level={3}>
+                Add your app details
+              </Heading>
+              <p>
+                Put your App Store and Google Play IDs in meta tags, like for
+                Apple's own banner. The icon is taken from{" "}
+                <code>apple-touch-icon</code>.
+              </p>
+              <CodeBlock title="index.html" code={META_SNIPPET} />
 
-            <Heading id="props-and-translations" level={3}>
-              Props and translations
-            </Heading>
-            <p>
-              Set texts, icon, links and placement. Missing translation keys
-              fall back to English.
-            </p>
-            <CodeBlock title="App.tsx" code={PROPS_SNIPPET} />
+              <Heading id="usage" level={3}>
+                Render the banner
+              </Heading>
+              <CodeBlock title="App.tsx" code={USAGE_SNIPPET} />
 
-            <Heading id="css-variables" level={3}>
-              CSS variables
-            </Heading>
-            <p>
-              Override variables globally, per platform with{" "}
-              <code>.smartbanner-ios</code> or <code>.smartbanner-android</code>
-              , or inline with the <code>style</code> prop.
-            </p>
-            <CodeBlock title="styles.css" code={CSS_SNIPPET} />
-            <div className="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Variable</th>
-                    <th>Controls</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {CSS_VARS.map((v) => (
-                    <tr key={v.name}>
-                      <td>
-                        <code>{v.name}</code>
-                      </td>
-                      <td>{v.description}</td>
+              <div className="tip">
+                <p className="tip-title">No meta tags?</p>
+                <p>
+                  Pass the app IDs and icon as props instead. Props win over
+                  meta tags when both are set.
+                </p>
+                <CodeBlock title="App.tsx" code={APPID_SNIPPET} />
+              </div>
+            </section>
+
+            <section>
+              <Heading id="playground">Playground</Heading>
+              <p>
+                Change the content, theme and behavior. The code updates as you
+                go — copy it when it looks right.
+              </p>
+              <Playground />
+            </section>
+
+            <section>
+              <Heading id="customization">Customization</Heading>
+              <p>
+                Start with props, restyle with CSS variables, or take over the
+                markup completely.
+              </p>
+
+              <Heading id="props-and-translations" level={3}>
+                Props and translations
+              </Heading>
+              <p>
+                Set texts, icon, links and placement. Missing translation keys
+                fall back to English.
+              </p>
+              <CodeBlock title="App.tsx" code={PROPS_SNIPPET} />
+
+              <Heading id="css-variables" level={3}>
+                CSS variables
+              </Heading>
+              <p>
+                Override variables globally, per platform with{" "}
+                <code>.smartbanner-ios</code> or{" "}
+                <code>.smartbanner-android</code>, or inline with the{" "}
+                <code>style</code> prop.
+              </p>
+              <CodeBlock title="styles.css" code={CSS_SNIPPET} />
+              <div className="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Variable</th>
+                      <th>Controls</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {CSS_VARS.map((v) => (
+                      <tr key={v.name}>
+                        <td>
+                          <code>{v.name}</code>
+                        </td>
+                        <td>{v.description}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
 
-            <Heading id="headless-hook" level={3}>
-              Headless hook
-            </Heading>
-            <p>
-              <code>useSmartBanner()</code> gives you device detection, store
-              links and the cookie logic. You render whatever you like.
-            </p>
-            <CodeBlock title="MyBanner.tsx" code={HOOK_SNIPPET} />
+              <Heading id="headless-hook" level={3}>
+                Headless hook
+              </Heading>
+              <p>
+                <code>useSmartBanner()</code> gives you device detection, store
+                links and the cookie logic. You render whatever you like.
+              </p>
+              <CodeBlock title="MyBanner.tsx" code={HOOK_SNIPPET} />
 
-            <Heading id="shadcn" level={3}>
-              shadcn/ui
-            </Heading>
-            <p>
-              Using shadcn/ui? Add a Tailwind version of the banner that uses
-              your theme tokens and <code>Button</code>. It installs{" "}
-              <code>components/smart-banner.tsx</code>, which renders the{" "}
-              <code>useSmartBanner()</code> hook from this package, so you edit
-              the markup and still get library fixes with{" "}
-              <code>npm update</code>.
-            </p>
-            <CodeBlock title="Terminal" code={SHADCN_INSTALL} />
-            <p>
-              It takes the same options as <code>useSmartBanner()</code>, plus{" "}
-              <code>placement</code> and <code>className</code>.
-            </p>
-            <CodeBlock title="layout.tsx" code={SHADCN_SNIPPET} />
-          </section>
+              <Heading id="shadcn" level={3}>
+                shadcn/ui
+              </Heading>
+              <p>
+                Using shadcn/ui? Add a Tailwind version of the banner that uses
+                your theme tokens and <code>Button</code>. It installs{" "}
+                <code>components/smart-banner.tsx</code>, which renders the{" "}
+                <code>useSmartBanner()</code> hook from this package, so you
+                edit the markup and still get library fixes with{" "}
+                <code>npm update</code>.
+              </p>
+              <CodeBlock title="Terminal" code={SHADCN_INSTALL} />
+              <p>
+                It takes the same options as <code>useSmartBanner()</code>, plus{" "}
+                <code>placement</code> and <code>className</code>.
+              </p>
+              <CodeBlock title="layout.tsx" code={SHADCN_SNIPPET} />
+            </section>
 
-          <section>
-            <Heading id="api">API</Heading>
-            <p>
-              All props are optional. The same options, except layout props,
-              work with <code>useSmartBanner()</code>.
-            </p>
-            <PropsTable />
+            <section>
+              <Heading id="api">API</Heading>
+              <p>
+                All props are optional. The same options, except layout props,
+                work with <code>useSmartBanner()</code>.
+              </p>
+              <PropsTable />
 
-            <Heading id="hook-result" level={3}>
-              useSmartBanner() result
-            </Heading>
-            <div className="table-wrap">
-              <table>
-                <thead>
-                  <tr>
-                    <th>Field</th>
-                    <th>Type</th>
-                    <th>Description</th>
-                  </tr>
-                </thead>
-                <tbody>
-                  {HOOK_FIELDS.map((field) => (
-                    <tr key={field.name}>
-                      <td>
-                        <code>{field.name}</code>
-                      </td>
-                      <td>
-                        <code>{field.type}</code>
-                      </td>
-                      <td>{field.description}</td>
+              <Heading id="hook-result" level={3}>
+                useSmartBanner() result
+              </Heading>
+              <div className="table-wrap">
+                <table>
+                  <thead>
+                    <tr>
+                      <th>Field</th>
+                      <th>Type</th>
+                      <th>Description</th>
                     </tr>
-                  ))}
-                </tbody>
-              </table>
-            </div>
+                  </thead>
+                  <tbody>
+                    {HOOK_FIELDS.map((field) => (
+                      <tr key={field.name}>
+                        <td>
+                          <code>{field.name}</code>
+                        </td>
+                        <td>
+                          <code>{field.type}</code>
+                        </td>
+                        <td>{field.description}</td>
+                      </tr>
+                    ))}
+                  </tbody>
+                </table>
+              </div>
 
-            <Heading id="utilities" level={3}>
-              Utilities
-            </Heading>
-            <ul className="list">
-              <li>
-                <code>resetSmartBanner()</code> clears the “closed” and
-                “installed” cookies, so the banner can show again.
-              </li>
-              <li>
-                <code>detectDevice()</code> and <code>resolvePlatform()</code>{" "}
-                are the device detection the banner uses.
-              </li>
-            </ul>
-          </section>
+              <Heading id="utilities" level={3}>
+                Utilities
+              </Heading>
+              <ul className="list">
+                <li>
+                  <code>resetSmartBanner()</code> clears the “closed” and
+                  “installed” cookies, so the banner can show again.
+                </li>
+                <li>
+                  <code>detectDevice()</code> and <code>resolvePlatform()</code>{" "}
+                  are the device detection the banner uses.
+                </li>
+              </ul>
+            </section>
 
-          <section>
-            <Heading id="migration">Migrating to v2</Heading>
-            <p>
-              v2 keeps the props, meta tags, class names and markup of v1. The
-              visible change is the new default look. To keep the v1 look,
-              change one import:
-            </p>
-            <CodeBlock title="App.tsx" code={CLASSIC_SNIPPET} />
-            <ul className="list">
-              <li>
-                <code>ua-parser-js</code> and <code>js-cookie</code> are no
-                longer dependencies. Install them yourself only if your own code
-                imports them.
-              </li>
-              <li>
-                The <code>&lt;html&gt;</code> margin classes are added only
-                while the banner is visible, and removed on unmount.
-              </li>
-              <li>
-                Cookie names are unchanged, so users who closed the banner in v1
-                won't see it again early.
-              </li>
-            </ul>
-            <p>
-              <a className="link" href={MIGRATION_URL}>
-                Read the full migration guide →
-              </a>
-            </p>
-          </section>
+            <section>
+              <Heading id="migration">Migrating to v2</Heading>
+              <p>
+                v2 keeps the props, meta tags, class names and markup of v1. The
+                visible change is the new default look. To keep the v1 look,
+                change one import:
+              </p>
+              <CodeBlock title="App.tsx" code={CLASSIC_SNIPPET} />
+              <ul className="list">
+                <li>
+                  <code>ua-parser-js</code> and <code>js-cookie</code> are no
+                  longer dependencies. Install them yourself only if your own
+                  code imports them.
+                </li>
+                <li>
+                  The <code>&lt;html&gt;</code> margin classes are added only
+                  while the banner is visible, and removed on unmount.
+                </li>
+                <li>
+                  Cookie names are unchanged, so users who closed the banner in
+                  v1 won't see it again early.
+                </li>
+              </ul>
+              <p>
+                <a className="link" href={MIGRATION_URL}>
+                  Read the full migration guide →
+                </a>
+              </p>
+            </section>
 
-          <section>
-            <Heading id="faq">FAQ</Heading>
-            <div className="faq">
-              {FAQ.map((item) => (
-                <details key={item.q}>
-                  <summary>{item.q}</summary>
-                  <p>{item.a}</p>
-                </details>
-              ))}
-            </div>
-          </section>
+            <section>
+              <Heading id="faq">FAQ</Heading>
+              <div className="faq">
+                {FAQ.map((item) => (
+                  <details key={item.q}>
+                    <summary>{item.q}</summary>
+                    <p>{item.a}</p>
+                  </details>
+                ))}
+              </div>
+            </section>
+          </div>
+          <aside className="toc-aside">
+            <Toc />
+          </aside>
         </div>
       </main>
 

@@ -38,6 +38,7 @@
     sans-serif;
   --mono: ui-monospace, "SF Mono", SFMono-Regular, Menlo, Consolas, monospace;
   --header-h: 64px;
+  --page-max: 1152px;
   color-scheme: light;
 }
 
@@ -244,7 +245,7 @@ code,
   display: flex;
   align-items: center;
   gap: 24px;
-  max-width: 1152px;
+  max-width: var(--page-max);
   height: var(--header-h);
   margin: 0 auto;
   padding: 0 16px;
@@ -375,7 +376,7 @@ code,
 .hero {
   display: grid;
   gap: 40px;
-  max-width: 1152px;
+  max-width: var(--page-max);
   margin: 0 auto;
   padding: 48px 16px 40px;
 }
@@ -490,7 +491,7 @@ code,
 .features {
   display: grid;
   gap: 16px;
-  max-width: 1152px;
+  max-width: var(--page-max);
   margin: 0 auto;
   padding: 0 16px;
 }
@@ -553,6 +554,104 @@ code,
   .doc {
     padding: 40px 24px 96px;
   }
+}
+
+/* ============ On this page ============ */
+
+.toc-aside {
+  display: none;
+}
+
+@media (min-width: 1280px) {
+  :root {
+    --page-max: 1248px;
+  }
+
+  .doc-layout {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 208px;
+    gap: 64px;
+    max-width: var(--page-max);
+    margin: 0 auto;
+    padding: 0 24px;
+  }
+
+  .doc-layout .doc {
+    max-width: none;
+    margin: 0;
+    padding-inline: 0;
+  }
+
+  .toc-aside {
+    display: block;
+    padding-top: 72px;
+  }
+}
+
+.toc {
+  position: sticky;
+  top: calc(var(--header-h) + 32px);
+  max-height: calc(100vh - var(--header-h) - 64px);
+  overflow-y: auto;
+  scrollbar-width: none;
+}
+
+.toc-title {
+  margin: 0 0 8px;
+  font-size: 14px;
+  font-weight: 600;
+  line-height: 32px;
+}
+
+.toc-body {
+  position: relative;
+  padding-left: 16px;
+  border-left: 1px solid var(--divider);
+}
+
+.toc-marker {
+  position: absolute;
+  top: 0;
+  left: -1px;
+  width: 2px;
+  height: 18px;
+  background: var(--brand);
+  border-radius: 2px;
+  transition:
+    transform 0.25s ease,
+    opacity 0.25s ease;
+}
+
+.toc ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.toc-link {
+  display: block;
+  overflow: hidden;
+  font-size: 14px;
+  line-height: 32px;
+  color: var(--text-2);
+  white-space: nowrap;
+  text-overflow: ellipsis;
+  transition: color 0.2s;
+}
+
+.toc-level-3 .toc-link {
+  padding-left: 14px;
+  font-size: 13px;
+  line-height: 28px;
+}
+
+.toc-link:hover,
+.toc-link.is-active {
+  color: var(--text-1);
+}
+
+.toc-link.is-active {
+  font-weight: 500;
 }
 
 .doc > section > p,
