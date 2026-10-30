@@ -242,7 +242,7 @@ export const FAQ: { q: string; a: string }[] = [
   },
   {
     q: "Can I use my own design?",
-    a: "Yes. Restyle the default banner with CSS variables and class names, or use the useSmartBanner() hook and render your own markup.",
+    a: "Yes. Restyle the default banner with CSS variables and class names, use the useSmartBanner() hook and render your own markup, or add the shadcn/ui component for a Tailwind version you can edit.",
   },
   {
     q: "How is it different from react-smartbanner?",

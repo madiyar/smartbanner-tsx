@@ -11,6 +11,7 @@ Key facts:
 - After close it is hidden for `daysHidden` days (default 15, cookie `smartbanner-closed`); after the button click for `daysReminder` days (default 90, cookie `smartbanner-installed`). `resetSmartBanner()` clears both.
 - Theming: CSS variables such as `--smartbanner-bg`, `--smartbanner-button-bg`, `--smartbanner-button-radius`, `--smartbanner-height`, set on `:root`, `.smartbanner-ios`, `.smartbanner-android` or via the `style` prop.
 - Headless: `useSmartBanner(options)` returns `{ visible, platform, appId, link, icon, description, t, close, install }`.
+- shadcn/ui: `npx shadcn@latest add https://madiyar.github.io/smartbanner-tsx/r/smart-banner.json` installs `components/smart-banner.tsx`, a Tailwind/shadcn-styled component built on `useSmartBanner()` (the logic stays in the npm package).
 - v2 keeps the v1 props, meta tags, class names and markup. To keep the v1 look import `smartbanner-tsx/classic.css`.
 - License: MIT.
 

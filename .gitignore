@@ -1,5 +1,7 @@
 /build
 /dist
 /node_modules
+# Built by `pnpm build:registry`
+/docs/public/r
 
 .DS_Store

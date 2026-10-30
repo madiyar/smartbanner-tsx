@@ -99,6 +99,19 @@ export function MyBanner() {
   );
 }`;
 
+const SHADCN_URL =
+  "https://madiyar.github.io/smartbanner-tsx/r/smart-banner.json";
+
+const SHADCN_INSTALL = `npx shadcn@latest add ${SHADCN_URL}`;
+
+const SHADCN_SNIPPET = `import { SmartBanner } from "@/components/smart-banner";
+
+<SmartBanner
+  title="YouTube"
+  author="Google LLC"
+  appId={{ ios: "544007664", android: "com.google.android.youtube" }}
+/>`;
+
 const CLASSIC_SNIPPET = `// v1
 import "smartbanner-tsx/dist/style.css";
 
@@ -410,6 +423,24 @@ export default function App() {
               links and the cookie logic. You render whatever you like.
             </p>
             <CodeBlock title="MyBanner.tsx" code={HOOK_SNIPPET} />
+
+            <Heading id="shadcn" level={3}>
+              shadcn/ui
+            </Heading>
+            <p>
+              Using shadcn/ui? Add a Tailwind version of the banner that uses
+              your theme tokens and <code>Button</code>. It installs{" "}
+              <code>components/smart-banner.tsx</code>, which renders the{" "}
+              <code>useSmartBanner()</code> hook from this package, so you edit
+              the markup and still get library fixes with{" "}
+              <code>npm update</code>.
+            </p>
+            <CodeBlock title="Terminal" code={SHADCN_INSTALL} />
+            <p>
+              It takes the same options as <code>useSmartBanner()</code>, plus{" "}
+              <code>placement</code> and <code>className</code>.
+            </p>
+            <CodeBlock title="layout.tsx" code={SHADCN_SNIPPET} />
           </section>
 
           <section>
