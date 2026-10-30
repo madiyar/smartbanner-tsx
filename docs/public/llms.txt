@@ -1,0 +1,28 @@
+# smartbanner-tsx
+
+> smartbanner-tsx is a Smart App Banner component for React 18 and 19. It shows a native-looking "open in the App Store / Google Play" banner on mobile websites to promote iOS and Android apps. It has zero runtime dependencies (~2.5 KB gzipped), is SSR-safe (Next.js App Router, Remix), written in TypeScript, and can be themed with CSS variables or replaced with your own markup through the `useSmartBanner()` hook.
+
+Key facts:
+
+- Install: `npm install smartbanner-tsx`. Peer dependencies: `react` and `react-dom` 18 or 19.
+- Usage: `import { SmartBanner } from "smartbanner-tsx"; import "smartbanner-tsx/style.css";` then render `<SmartBanner title="My App" author="My Company" />`.
+- App IDs come from `<meta name="apple-itunes-app" content="app-id=...">` and `<meta name="google-play-app" content="app-id=...">`, or from the `appId={{ ios, android }}` prop. Without an app ID the banner is not shown.
+- The banner shows on Android and on iOS browsers without Apple's native banner (Chrome, Firefox, in-app browsers). It is skipped in iOS Safari (use `ignoreIosVersion` to show it there), on desktop (use `force="ios"` or `force="android"` to preview), and in installed PWAs.
+- After close it is hidden for `daysHidden` days (default 15, cookie `smartbanner-closed`); after the button click for `daysReminder` days (default 90, cookie `smartbanner-installed`). `resetSmartBanner()` clears both.
+- Theming: CSS variables such as `--smartbanner-bg`, `--smartbanner-button-bg`, `--smartbanner-button-radius`, `--smartbanner-height`, set on `:root`, `.smartbanner-ios`, `.smartbanner-android` or via the `style` prop.
+- Headless: `useSmartBanner(options)` returns `{ visible, platform, appId, link, icon, description, t, close, install }`.
+- v2 keeps the v1 props, meta tags, class names and markup. To keep the v1 look import `smartbanner-tsx/classic.css`.
+- License: MIT.
+
+## Docs
+
+- [Full documentation](https://madiyar.github.io/smartbanner-tsx/llms-full.txt): README and migration guide as plain Markdown
+- [Website with live playground](https://madiyar.github.io/smartbanner-tsx/)
+- [README](https://github.com/madiyar/smartbanner-tsx/blob/main/README.md): installation, usage, props, CSS variables, hook
+- [Migration guide v1 → v2](https://github.com/madiyar/smartbanner-tsx/blob/main/MIGRATION.md)
+
+## Optional
+
+- [npm package](https://www.npmjs.com/package/smartbanner-tsx)
+- [Source code](https://github.com/madiyar/smartbanner-tsx)
+- [Type definitions](https://github.com/madiyar/smartbanner-tsx/blob/main/src/types.ts)

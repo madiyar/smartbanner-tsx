@@ -1,0 +1,38 @@
+name: CI
+
+# Runs on every pull request, so problems are caught before they reach main.
+on:
+  pull_request:
+  workflow_call:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: ./.github/actions/setup
+
+      - name: Lint & format
+        run: pnpm run format
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
+      - name: Test
+        run: pnpm run test:run
+
+      - name: Build library
+        run: pnpm run build
+
+      - name: Check package contents
+        run: npm pack --dry-run
+
+      - name: Build demo
+        run: pnpm run build:docs

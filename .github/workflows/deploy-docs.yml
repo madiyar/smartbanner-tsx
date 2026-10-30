@@ -1,44 +1,50 @@
-name: Deploy Docs to GitHub Pages
+name: Deploy demo
 
+# The demo is deployed on its own:
+# - when demo files change on main,
+# - after a library release (so the demo shows the released version),
+# - or manually.
 on:
   push:
-    branches:
-      - main
-    paths-ignore:
-      - 'README.md'
+    branches: [main]
+    paths:
+      - "docs/**"
+      - "scripts/**"
+      - "vite.config.mts"
+      - "README.md" # llms-full.txt is built from it
+      - "MIGRATION.md"
+  workflow_run:
+    workflows: ["Release library"]
+    types: [completed]
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: write # push to the gh-pages branch
+
+concurrency:
+  group: deploy-docs
+  cancel-in-progress: true
 
 jobs:
   deploy:
+    if: github.event_name != 'workflow_run' || github.event.workflow_run.conclusion == 'success'
     runs-on: ubuntu-latest
-
     steps:
-    - name: Checkout repo
-      uses: actions/checkout@v4
+      - uses: actions/checkout@v4
+        with:
+          ref: main
 
-    - name: Setup Node.js
-      uses: actions/setup-node@v3
-      with:
-        node-version: 24
+      - uses: ./.github/actions/setup
 
-    - name: Install dependencies with pnpm
-      run: |
-        npm install -g pnpm
-        pnpm install
+      - name: Lint & format
+        run: pnpm run format
 
-    - name: Biome format & linter
-      run: pnpm run format
+      - name: Build demo
+        run: pnpm run build:docs
 
-    - name: Build docs
-      run: pnpm run build:docs
-
-    - name: Run tests
-      run: pnpm run test:run
-
-    - name: Show current directory files
-      run: ls -la
-
-    - name: Deploy to GitHub Pages
-      uses: peaceiris/actions-gh-pages@v4
-      with:
-        github_token: ${{ secrets.GITHUB_TOKEN }}
-        publish_dir: ./build
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: ./build

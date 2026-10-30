@@ -1,37 +1,61 @@
 {
   "name": "smartbanner-tsx",
   "version": "0.0.0-development",
-  "description": "Smart App Banner for React",
+  "description": "Smart App Banner for React — lightweight, zero-dependency, SSR-safe and customizable",
   "main": "./dist/index.js",
   "module": "./dist/index.mjs",
   "types": "./dist/index.d.ts",
   "files": [
-    "./dist"
+    "dist",
+    "MIGRATION.md"
+  ],
+  "sideEffects": [
+    "*.css"
   ],
   "exports": {
     ".": {
-      "import": "./dist/index.mjs",
-      "require": "./dist/index.js"
+      "import": {
+        "types": "./dist/index.d.mts",
+        "default": "./dist/index.mjs"
+      },
+      "require": {
+        "types": "./dist/index.d.ts",
+        "default": "./dist/index.js"
+      }
     },
-    "./dist/style.css": "./dist/style.css"
+    "./style.css": "./dist/style.css",
+    "./classic.css": "./dist/classic.css",
+    "./dist/style.css": "./dist/style.css",
+    "./dist/classic.css": "./dist/classic.css",
+    "./package.json": "./package.json"
   },
   "scripts": {
     "build": "tsup",
-    "build:docs": "vite build",
     "dev": "vite",
-    "semantic-release": "semantic-release",
+    "build:docs": "vite build && node scripts/prerender.mjs",
+    "preview:docs": "vite preview",
+    "typecheck": "tsc --noEmit",
     "format": "biome ci",
+    "format:fix": "biome check --write",
     "test": "vitest",
-    "test:run": "vitest run"
+    "test:run": "vitest run",
+    "semantic-release": "semantic-release"
   },
   "keywords": [
     "react",
     "smartbanner",
+    "smart app banner",
+    "smart-app-banner",
+    "app banner",
+    "app store banner",
+    "google play banner",
     "ios",
     "android",
-    "smart app banner",
-    "smartbanner.js",
+    "nextjs",
+    "ssr",
+    "typescript",
     "react-smartbanner",
+    "smartbanner.js",
     "react smart app banner",
     "smartbanner react"
   ],
@@ -43,7 +67,6 @@
   },
   "bugs": "https://github.com/madiyar/smartbanner-tsx/issues",
   "homepage": "https://madiyar.github.io/smartbanner-tsx",
-  "demo": "https://madiyar.github.io/smartbanner-tsx",
   "peerDependencies": {
     "react": "^18.0.0 || ^19.0.0",
     "react-dom": "^18.0.0 || ^19.0.0"
@@ -58,22 +81,21 @@
   },
   "devDependencies": {
     "@biomejs/biome": "1.9.4",
-    "@types/js-cookie": "^3.0.6",
-    "@types/react": "^18.3.23",
+    "@types/react": "^18.3.31",
     "@types/react-dom": "^18.3.7",
-    "@vitejs/plugin-react": "^4.5.0",
+    "@vitejs/plugin-react": "^6.1.2",
     "jsdom": "^26.1.0",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
-    "semantic-release": "^25.0.3",
+    "semantic-release": "^25.0.9",
     "tsup": "^8.5.1",
-    "typescript": "^5.8.3",
-    "vite": "^8.0.10",
-    "vitest": "^4.1.5"
+    "typescript": "^5.9.3",
+    "vite": "^8.3.5",
+    "vitest": "^4.1.12"
   },
-  "dependencies": {
-    "js-cookie": "^3.0.5",
-    "ua-parser-js": "^2.0.9"
-  },
-  "packageManager": "pnpm@9.4.0"
+  "packageManager": "pnpm@9.4.0",
+  "publishConfig": {
+    "access": "public",
+    "provenance": true
+  }
 }

@@ -4,6 +4,11 @@ import {
   default_meta,
   default_translations,
   defaultStoreLang,
+  parseStoreLang,
+  buildStoreLink,
+  safeUrl,
+  readMetaAppId,
+  resetSmartBanner,
   iconsRels,
   isStandalone,
   cookie,
@@ -33,6 +38,7 @@ describe("utils", () => {
         price_android: "Free",
         store_ios: "On the App Store",
         store_android: "In Google Play",
+        close: "close",
       });
     });
   });
@@ -69,6 +75,51 @@ describe("utils", () => {
         writable: true,
       });
       expect(defaultStoreLang()).toBe("gb");
+    });
+  });
+
+  describe("parseStoreLang", () => {
+    it("takes the region subtag, not the script", () => {
+      expect(parseStoreLang("zh-Hant-TW")).toBe("tw");
+      expect(parseStoreLang("pt_BR")).toBe("br");
+      expect(parseStoreLang("ru")).toBe("us");
+      expect(parseStoreLang(undefined)).toBe("us");
+    });
+  });
+
+  describe("buildStoreLink", () => {
+    it("builds https store links and encodes the id", () => {
+      expect(buildStoreLink("ios", "544007664", "gb")).toBe(
+        "https://apps.apple.com/gb/app/id544007664",
+      );
+      expect(
+        buildStoreLink("android", "com.google.android.youtube", "us"),
+      ).toBe(
+        "https://play.google.com/store/apps/details?id=com.google.android.youtube",
+      );
+      expect(buildStoreLink("android", "a&b=c", "us")).toContain(
+        "id=a%26b%3Dc",
+      );
+      expect(buildStoreLink("ios", "", "us")).toBe("#");
+    });
+  });
+
+  describe("safeUrl", () => {
+    it("blocks script urls", () => {
+      expect(safeUrl("javascript:alert(1)")).toBe("#");
+      expect(safeUrl(" JavaScript:alert(1)")).toBe("#");
+      expect(safeUrl("data:text/html,hi")).toBe("#");
+      expect(safeUrl("https://example.com")).toBe("https://example.com");
+    });
+  });
+
+  describe("readMetaAppId", () => {
+    it("reads app-id from the meta tag", () => {
+      document.head.innerHTML =
+        '<meta name="apple-itunes-app" content="app-id=123, app-argument=x" />';
+      expect(readMetaAppId("apple-itunes-app")).toBe("123");
+      expect(readMetaAppId("missing")).toBe("");
+      document.head.innerHTML = "";
     });
   });
 
@@ -184,6 +235,14 @@ describe("utils", () => {
     it("should set and get installed cookie", () => {
       cookie.installed.set(90);
       expect(cookie.installed.get()).toBe("true");
+    });
+
+    it("resetSmartBanner clears both cookies", () => {
+      cookie.closed.set(15);
+      cookie.installed.set(90);
+      resetSmartBanner();
+      expect(cookie.closed.get()).toBeUndefined();
+      expect(cookie.installed.get()).toBeUndefined();
     });
   });
 });
