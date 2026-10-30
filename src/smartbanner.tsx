@@ -77,6 +77,7 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
     .join(" ");
 
   const content = (
+    // biome-ignore lint/a11y/useSemanticElements: switching to <aside> would change the rendered markup users style against.
     <div
       className={classes}
       style={style}

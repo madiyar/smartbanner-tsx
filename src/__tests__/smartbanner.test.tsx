@@ -1,4 +1,3 @@
-import React from "react";
 import { act } from "react";
 import { createRoot, type Root } from "react-dom/client";
 import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
@@ -121,6 +120,7 @@ describe("<SmartBanner />", () => {
   });
 
   it("stays hidden after being closed", async () => {
+    // biome-ignore lint/suspicious/noDocumentCookie: the library itself uses document.cookie.
     document.cookie = "smartbanner-closed=true; path=/";
     await render({ force: "ios", appId: { ios: "1" } });
     expect(banner()).toBeNull();
