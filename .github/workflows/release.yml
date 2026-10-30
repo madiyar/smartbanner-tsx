@@ -1,0 +1,51 @@
+name: Release library
+
+# Publishes to npm only when the library itself changes.
+# Demo-only changes are handled by deploy-docs.yml.
+on:
+  push:
+    branches: [main, next]
+    paths:
+      - "src/**"
+      - "package.json"
+      - "pnpm-lock.yaml"
+      - "tsup.config.ts"
+      - "release.config.mjs"
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: release-${{ github.ref }}
+  cancel-in-progress: false
+
+jobs:
+  check:
+    uses: ./.github/workflows/ci.yml
+
+  release:
+    needs: check
+    runs-on: ubuntu-latest
+    permissions:
+      contents: write # tags + GitHub release
+      issues: write # comment on released issues
+      pull-requests: write # comment on released PRs
+      id-token: write # npm Trusted Publishing (OIDC) + provenance
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0 # semantic-release needs full history and tags
+          persist-credentials: false
+
+      - uses: ./.github/actions/setup
+
+      - name: Build library
+        run: pnpm run build
+
+      - name: Release
+        run: pnpm run semantic-release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          # Not needed once npm Trusted Publishing is configured for this repo.
+          NPM_TOKEN: ${{ secrets.NPM_TOKEN }}

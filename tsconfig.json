@@ -4,14 +4,18 @@
     "esModuleInterop": true,
     "lib": ["dom", "dom.iterable", "esnext"],
     "module": "ESNext",
-    "moduleResolution": "node",
+    "moduleResolution": "bundler",
+    "target": "es2018",
     "strict": true,
-    "target": "es5",
-    "noImplicitAny": true,
-    "outDir": "dist",
-    "strictNullChecks": true,
-    "skipLibCheck": true
+    "noEmit": true,
+    "skipLibCheck": true,
+    "isolatedModules": true,
+    "resolveJsonModule": true,
+    "types": ["vitest/globals", "vite/client"],
+    "paths": {
+      "smartbanner-tsx": ["./src/index.ts"]
+    }
   },
-  "include": ["src/**/*"],
-  "exclude": ["node_modules"]
+  "include": ["src", "docs", "*.mts", "*.ts"],
+  "exclude": ["node_modules", "dist", "build"]
 }

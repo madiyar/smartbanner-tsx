@@ -1,7 +1,7 @@
 import { defineConfig } from "tsup";
 
 export default defineConfig({
-  entry: ["./src/index.ts", "./src/style.css"],
+  entry: ["./src/index.ts", "./src/style.css", "./src/classic.css"],
   format: ["cjs", "esm"],
   outDir: "dist",
   dts: {
@@ -9,13 +9,10 @@ export default defineConfig({
   },
   clean: true,
   sourcemap: false,
-  treeshake: true,
   splitting: false,
-  // ----------------------------
-  shims: true,
-  skipNodeModulesBundle: true,
   external: ["react", "react-dom"],
   minify: true,
-  bundle: true,
-  target: "es2015",
+  target: "es2018",
+  // Lets Next.js App Router users import the component from server components.
+  banner: { js: '"use client";' },
 });
