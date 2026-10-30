@@ -2,4 +2,8 @@
 /dist
 /node_modules
 
+# Worktrees and local settings created by Claude Code sessions
+/.claude/worktrees/
+/.claude/launch.json
+
 .DS_Store

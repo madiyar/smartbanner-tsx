@@ -25,7 +25,7 @@ jobs:
       - name: Typecheck
         run: pnpm run typecheck
 
-      - name: Test
+      - name: Test (React 19)
         run: pnpm run test:run
 
       - name: Build library
@@ -36,3 +36,20 @@ jobs:
 
       - name: Build demo
         run: pnpm run build:docs
+
+  # The library supports React 18 and 19 (peerDependencies); dev uses 19.
+  react-18:
+    name: test (React 18)
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v7
+      - uses: ./.github/actions/setup
+
+      - name: Switch to React 18
+        run: pnpm add -D react@^18 react-dom@^18 @types/react@^18 @types/react-dom@^18
+
+      - name: Typecheck
+        run: pnpm run typecheck
+
+      - name: Test
+        run: pnpm run test:run
