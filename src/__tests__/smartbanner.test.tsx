@@ -4,6 +4,12 @@ import { afterEach, beforeEach, describe, expect, it, vi } from "vitest";
 import { SmartBanner } from "../index";
 import type { SmartBannerProps } from "../types";
 import { resetSmartBanner } from "../utils";
+import {
+  mockStandalone,
+  mockUserAgent,
+  restoreNavigator,
+  UA,
+} from "./test-utils";
 
 (
   globalThis as { IS_REACT_ACT_ENVIRONMENT?: boolean }
@@ -32,6 +38,7 @@ beforeEach(() => {
 afterEach(async () => {
   await act(async () => root.unmount());
   container.remove();
+  restoreNavigator();
 });
 
 describe("<SmartBanner />", () => {
@@ -187,5 +194,79 @@ describe("<SmartBanner />", () => {
     expect(
       container.querySelector(".smartbanner-close")?.getAttribute("aria-label"),
     ).toBe("Dismiss");
+  });
+
+  it("calls onShow once with the platform", async () => {
+    const onShow = vi.fn();
+    await render({ force: "ios", appId: { ios: "1" }, onShow });
+
+    expect(onShow).toHaveBeenCalledTimes(1);
+    expect(onShow).toHaveBeenCalledWith("ios");
+  });
+
+  it("clicking the button calls onInstall and hides the banner", async () => {
+    const onInstall = vi.fn();
+    // jsdom can't navigate; keep the link from trying.
+    const stopNavigation = (event: Event) => event.preventDefault();
+    document.addEventListener("click", stopNavigation);
+
+    await render({ force: "android", appId: { android: "x" }, onInstall });
+    await act(async () => {
+      (document.querySelector(".smartbanner-button") as HTMLElement).click();
+    });
+    document.removeEventListener("click", stopNavigation);
+
+    expect(onInstall).toHaveBeenCalledWith("android");
+    expect(banner()).toBeNull();
+    expect(document.cookie).toContain("smartbanner-installed=true");
+  });
+
+  it("stays hidden in an installed web app (PWA)", async () => {
+    mockStandalone(true);
+    await render({ force: "ios", appId: { ios: "1" } });
+    expect(banner()).toBeNull();
+  });
+
+  describe("detection without force", () => {
+    const appId = { ios: "1", android: "x" };
+
+    it("shows the Android banner on Android", async () => {
+      mockUserAgent(UA.android);
+      await render({ appId });
+      expect(banner()?.className).toContain("smartbanner-android");
+    });
+
+    it("skips iOS Safari, which has Apple's native banner", async () => {
+      mockUserAgent(UA.iphoneSafari);
+      await render({ appId });
+      expect(banner()).toBeNull();
+    });
+
+    it("shows in iOS Safari with ignoreIosVersion", async () => {
+      mockUserAgent(UA.iphoneSafari);
+      await render({ appId, ignoreIosVersion: true });
+      expect(banner()?.className).toContain("smartbanner-ios");
+    });
+
+    it("shows in other iOS browsers", async () => {
+      mockUserAgent(UA.iphoneChrome);
+      await render({ appId });
+      expect(banner()?.className).toContain("smartbanner-ios");
+    });
+  });
+
+  it("renders into portalTargetId", async () => {
+    const target = document.createElement("div");
+    target.id = "banner-slot";
+    document.body.appendChild(target);
+
+    await render({
+      force: "ios",
+      appId: { ios: "1" },
+      portalTargetId: "banner-slot",
+    });
+
+    expect(target.querySelector(".smartbanner")).not.toBeNull();
+    target.remove();
   });
 });
