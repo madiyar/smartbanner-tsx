@@ -10,6 +10,9 @@
     "includes": [
       "**/src/**",
       "**/docs/**",
+      "**/registry/**",
+      "registry.json",
+      "!**/docs/public/r",
       "!**/dist",
       "!**/build",
       "!**/node_modules",

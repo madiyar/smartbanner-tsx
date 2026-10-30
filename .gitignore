@@ -1,6 +1,8 @@
 /build
 /dist
 /node_modules
+# Built by `pnpm build:registry`
+/docs/public/r
 
 # Worktrees and local settings created by Claude Code sessions
 /.claude/worktrees/

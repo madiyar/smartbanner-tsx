@@ -10,6 +10,8 @@ on:
     paths:
       - "docs/**"
       - "scripts/**"
+      - "registry/**" # shadcn registry, built into docs/public/r
+      - "registry.json"
       - "vite.config.mts"
       - "README.md" # llms-full.txt is built from it
       - "MIGRATION.md"

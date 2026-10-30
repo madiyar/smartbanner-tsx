@@ -32,7 +32,8 @@
   "scripts": {
     "build": "tsup",
     "dev": "vite",
-    "build:docs": "vite build && node scripts/prerender.mjs",
+    "build:registry": "shadcn build --output docs/public/r",
+    "build:docs": "pnpm run build:registry && vite build && node scripts/prerender.mjs",
     "preview:docs": "vite preview",
     "typecheck": "tsc --noEmit",
     "format": "biome ci",
@@ -89,6 +90,7 @@
     "react": "^19.3.1",
     "react-dom": "^19.3.1",
     "semantic-release": "^25.0.9",
+    "shadcn": "4.22.0",
     "tsup": "^9.0.0",
     "typescript": "^7.0.2",
     "vite": "^8.3.5",
