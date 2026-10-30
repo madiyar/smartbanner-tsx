@@ -2,222 +2,135 @@
 <html lang="en">
   <head>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />    
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <title>smartbanner-tsx — Smart App Banner for React (iOS &amp; Android)</title>
+    <meta
+      name="description"
+      content="Smart App Banner for React 18 and 19. A lightweight, zero-dependency, SSR-safe component that promotes your iOS and Android apps on mobile websites. Theme it with CSS variables or a headless hook."
+    />
+    <link rel="canonical" href="https://madiyar.github.io/smartbanner-tsx/" />
+    <meta name="robots" content="index, follow" />
+    <meta name="author" content="madiyar" />
+
+    <meta property="og:type" content="website" />
+    <meta property="og:site_name" content="smartbanner-tsx" />
+    <meta property="og:url" content="https://madiyar.github.io/smartbanner-tsx/" />
+    <meta property="og:title" content="smartbanner-tsx — Smart App Banner for React" />
+    <meta
+      property="og:description"
+      content="Promote your iOS and Android apps on your mobile website. ~2.5 KB, zero dependencies, SSR-safe, with a live playground."
+    />
+    <meta property="og:image" content="https://madiyar.github.io/smartbanner-tsx/og.png" />
+    <meta property="og:image:width" content="1200" />
+    <meta property="og:image:height" content="630" />
+    <meta property="og:image:alt" content="smartbanner-tsx: iOS and Android app banners for React" />
+    <meta name="twitter:card" content="summary_large_image" />
+    <meta name="twitter:title" content="smartbanner-tsx — Smart App Banner for React" />
+    <meta
+      name="twitter:description"
+      content="Promote your iOS and Android apps on your mobile website. ~2.5 KB, zero dependencies, SSR-safe."
+    />
+    <meta name="twitter:image" content="https://madiyar.github.io/smartbanner-tsx/og.png" />
+
+    <link rel="alternate" type="text/plain" title="LLM-friendly docs" href="llms.txt" />
+
+    <meta name="color-scheme" content="light dark" />
+    <meta name="theme-color" content="#fafaf9" media="(prefers-color-scheme: light)" />
+    <meta name="theme-color" content="#1f2023" media="(prefers-color-scheme: dark)" />
+
+    <!-- The banner reads these on real devices (example: YouTube app). -->
     <meta name="apple-itunes-app" content="app-id=544007664" />
     <meta name="google-play-app" content="app-id=com.google.android.youtube" />
-  
     <link rel="apple-touch-icon" href="/smartbanner-tsx/assets/icon-BxcIcX8q.webp" />
     <link rel="android-touch-icon" href="data:image/webp;base64,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" />
-    <title>Smart App Banner ─ smartbanner-tsx</title>
-    <meta name="description" content="Smart App Banner for React v18+ (TypeScript) — a customizable React component for promoting iOS and Android apps on mobile websites. Lightweight, flexible, and easy to integrate with your own styles." />
-    <!-- FONTS -->
-    <link rel="preconnect" href="https://fonts.googleapis.com">
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Geist+Mono&family=Inter:ital,opsz,wght@0,14..32,100..900;1,14..32,100..900&display=swap" rel="stylesheet">
 
+    <link rel="icon" type="image/svg+xml" href="favicon.svg" />
+    <link rel="icon" type="image/png" sizes="64x64" href="favicon.png" />
 
-    <link rel="icon" type="image/png" sizes="32x32" href="https://react.dev/favicon-32x32.png" />
-    <link rel="icon" type="image/png" sizes="16x16" href="https://react.dev/favicon-16x16.png" />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,400..700&display=swap"
+      rel="stylesheet"
+    />
 
-    <script type="module" crossorigin src="/smartbanner-tsx/assets/index-BhlZ-Kki.js"></script>
-    <link rel="stylesheet" crossorigin href="/smartbanner-tsx/assets/index-BQHkTlSc.css">
+    <script>
+      // Apply the saved theme before first paint to avoid a flash.
+      try {
+        var theme = localStorage.getItem("sb-demo-theme");
+        if (theme === "light" || theme === "dark") {
+          document.documentElement.dataset.theme = theme;
+        }
+      } catch (e) {}
+    </script>
+    <script type="module" crossorigin src="/smartbanner-tsx/assets/index-3Srms3TF.js"></script>
+    <link rel="stylesheet" crossorigin href="/smartbanner-tsx/assets/index-gzhCR1g3.css">
+      <script type="application/ld+json">{"@context":"https://schema.org","@type":"SoftwareSourceCode","name":"smartbanner-tsx","description":"Smart App Banner for React — lightweight, zero-dependency, SSR-safe and customizable","url":"https://madiyar.github.io/smartbanner-tsx/","codeRepository":"https://github.com/madiyar/smartbanner-tsx","programmingLanguage":["TypeScript","React"],"runtimePlatform":"Web browser","license":"https://opensource.org/licenses/MIT","keywords":"react, smartbanner, smart app banner, smart-app-banner, app banner, app store banner, google play banner, ios, android, nextjs, ssr, typescript, react-smartbanner, smartbanner.js, react smart app banner, smartbanner react","author":{"@type":"Person","name":"madiyar","url":"https://madiyar.dev"}}</script>
+    <script type="application/ld+json">{"@context":"https://schema.org","@type":"FAQPage","mainEntity":[{"@type":"Question","name":"Why don't I see the banner on my iPhone in Safari?","acceptedAnswer":{"@type":"Answer","text":"Safari on iOS shows Apple's native Smart App Banner from the apple-itunes-app meta tag, so this banner is skipped there to avoid two banners. It shows in Chrome, Firefox and in-app browsers on iOS, and on Android. Set ignoreIosVersion to show it in Safari too."}},{"@type":"Question","name":"Why doesn't the banner show on desktop?","acceptedAnswer":{"@type":"Answer","text":"It only targets phones and tablets. Use the force prop (force=\"ios\" or force=\"android\") to preview it on desktop."}},{"@type":"Question","name":"I closed the banner and it doesn't come back. How do I test it again?","acceptedAnswer":{"@type":"Answer","text":"Closing sets the smartbanner-closed cookie for daysHidden days, and tapping the button sets smartbanner-installed for daysReminder days. Call resetSmartBanner() or delete these cookies."}},{"@type":"Question","name":"Does it work with Next.js, Remix or other SSR frameworks?","acceptedAnswer":{"@type":"Answer","text":"Yes. Nothing is rendered on the server, everything is read after mount, and the package ships with \"use client\", so you can render it from a Next.js App Router layout."}},{"@type":"Question","name":"Can I use my own design?","acceptedAnswer":{"@type":"Answer","text":"Yes. Restyle the default banner with CSS variables and class names, or use the useSmartBanner() hook and render your own markup."}},{"@type":"Question","name":"How is it different from react-smartbanner?","acceptedAnswer":{"@type":"Answer","text":"smartbanner-tsx is written in TypeScript, has no runtime dependencies, supports React 18 and 19, is SSR-safe and offers CSS variables and a headless hook."}}]}</script>
   </head>
   <body>
-    <header class="container">
-      <h1 class="select-none">Smart App Banner</h1>
-      <a href="https://github.com/madiyar/smartbanner-tsx" aria-label="GitHub" title="GitHub" target="_blank" rel="noopener noreferrer">
-        <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="28" height="28" viewBox="0 0 24 24" fill="none" role="img" color="currentColor">
-          <path d="M14.0588 22.561V17.844C14.0588 17.4767 13.9506 17.1574 13.7762 16.8689C13.6566 16.6711 13.7385 16.3903 13.9547 16.3283C15.7447 15.8147 17 14.9888 17 12.2493C17 11.5371 16.7764 10.8675 16.3834 10.2847C16.3755 10.2729 16.368 10.2617 16.3607 10.251C16.2785 10.1294 16.2372 10.0684 16.2251 10.0021C16.213 9.93551 16.2302 9.86352 16.2649 9.71917C16.268 9.70625 16.2712 9.69276 16.2746 9.67864C16.4183 9.07572 16.4298 8.44056 16.2692 7.84807C16.2164 7.65332 16.1032 7.53972 15.8983 7.56165C15.6326 7.5901 15.1725 7.71727 14.49 8.16229C14.2219 8.33714 14.0878 8.42456 13.9697 8.44412C13.8516 8.46367 13.6938 8.42271 13.378 8.34078C12.9463 8.22875 12.5014 8.16861 12 8.16861C11.4986 8.16861 11.0537 8.22875 10.622 8.34079C10.3062 8.42271 10.1484 8.46367 10.0303 8.44412C9.91221 8.42456 9.77813 8.33713 9.50999 8.16228C8.82753 7.71726 8.3674 7.5901 8.10166 7.56165C7.8968 7.53972 7.78361 7.65332 7.73081 7.84807C7.57017 8.44057 7.58167 9.07574 7.72543 9.67865C7.7288 9.69277 7.73203 9.70627 7.73513 9.71919C7.76976 9.86353 7.78702 9.93551 7.77487 10.0021C7.76277 10.0684 7.72154 10.1294 7.63929 10.251C7.63203 10.2618 7.62444 10.273 7.61654 10.2847C7.22356 10.8675 7 11.5371 7 12.2493C7 14.9888 8.25526 15.8147 10.0453 16.3283C10.2615 16.3903 10.3434 16.6711 10.2238 16.8689C10.0494 17.1574 9.94118 17.4767 9.94118 17.844V18.2942C9.90763 18.2899 9.87365 18.2851 9.84326 18.28C9.65732 18.2487 9.39055 18.1892 9.08352 18.0777C8.46975 17.8549 7.71089 17.431 7.09869 16.6198C6.84917 16.2892 6.37887 16.2234 6.04825 16.4729C5.71762 16.7224 5.65187 17.1927 5.90139 17.5234C6.7299 18.6212 7.75836 19.1925 8.57172 19.4877C8.97826 19.6353 9.33501 19.7155 9.5942 19.7591C9.72411 19.781 9.83045 19.7939 9.90744 19.8014C9.91685 19.8023 9.92854 19.8033 9.94118 19.8042V22.5556C5.04611 21.6191 1.25391 17.3958 1.25391 12C1.25391 5.67848 6.15183 1.25 12.0001 1.25C17.8485 1.25 22.7464 5.36535 22.7464 12.0039C22.7464 17.521 18.954 21.6492 14.0588 22.561Z" fill="currentColor"></path>
-        </svg>
-      </a>
-    </header>
-    <div id="app"></div>
-    <main class="container">
-      <h2>Installation</h2>
+    <div id="app"><header class="header"><div class="header-inner"><a href="#top" class="brand"><svg width="26" height="26" viewBox="0 0 32 32" aria-hidden="true"><defs><linearGradient id="logo-bg" x1="0" y1="0" x2="0" y2="1"><stop offset="0" stop-color="#3a78ec"></stop><stop offset="1" stop-color="#1a4fb0"></stop></linearGradient></defs><rect width="32" height="32" rx="8" fill="url(#logo-bg)"></rect><rect x="4.5" y="5.5" width="23" height="13" rx="4" fill="#fff"></rect><rect x="7.5" y="8.5" width="7" height="7" rx="2" fill="#1f5fd1"></rect></svg><span>smartbanner-tsx</span></a><nav class="nav" aria-label="Sections"><a href="#getting-started">Guide</a><a href="#playground">Playground</a><a href="#api">API</a><a href="#migration">Migration</a></nav><div class="header-actions"><button type="button" class="icon-btn" aria-label="Toggle dark mode" title="Toggle dark mode"><span class="only-light"><svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 14.5A8 8 0 1 1 9.5 4a6.5 6.5 0 0 0 10.5 10.5Z"></path></svg></span><span class="only-dark"><svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="4"></circle><path d="M12 2.5v2M12 19.5v2M4.6 4.6 6 6M18 18l1.4 1.4M2.5 12h2M19.5 12h2M4.6 19.4 6 18M18 6l1.4-1.4"></path></svg></span></button><a class="icon-btn" href="https://github.com/madiyar/smartbanner-tsx" target="_blank" rel="noopener noreferrer" aria-label="GitHub repository" title="GitHub"><svg aria-hidden="true" focusable="false" width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" stroke="none" d="M12 2a10 10 0 0 0-3.16 19.49c.5.09.68-.22.68-.48v-1.7c-2.78.6-3.37-1.34-3.37-1.34-.45-1.16-1.11-1.47-1.11-1.47-.91-.62.07-.6.07-.6 1 .07 1.53 1.03 1.53 1.03.9 1.52 2.34 1.08 2.91.83.09-.65.35-1.09.63-1.34-2.22-.25-4.55-1.11-4.55-4.94 0-1.09.39-1.98 1.03-2.68-.1-.25-.45-1.27.1-2.64 0 0 .84-.27 2.75 1.02a9.5 9.5 0 0 1 5 0c1.91-1.29 2.75-1.02 2.75-1.02.55 1.37.2 2.39.1 2.64.64.7 1.03 1.59 1.03 2.68 0 3.84-2.34 4.68-4.57 4.93.36.31.68.92.68 1.85v2.75c0 .27.18.58.69.48A10 10 0 0 0 12 2Z"></path></svg></a></div></div></header><main id="top"><section class="hero"><div class="hero-text"><h1><span class="hero-name">smartbanner-tsx</span><span class="hero-title">Smart App Banner for React</span></h1><p class="hero-tagline">Promote your iOS and Android apps on your mobile website with a native-looking banner. Tiny, SSR-safe and easy to restyle.</p><div class="hero-actions"><a href="#getting-started" class="btn btn-brand">Get started</a><a href="#playground" class="btn btn-alt">Playground</a><a href="https://github.com/madiyar/smartbanner-tsx" class="btn btn-alt" target="_blank" rel="noopener noreferrer">GitHub</a></div><div class="install-cmd"><code><span class="install-prompt" aria-hidden="true">$<!-- --> </span>npm install smartbanner-tsx</code><button type="button" class="copy-btn" aria-label="Copy"><svg aria-hidden="true" focusable="false" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2.5"></rect><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"></path></svg><span>Copy</span></button></div></div><div class="hero-preview" aria-hidden="true"><figure class="preview-item"><figcaption>iOS</figcaption><div class="preview-slot"></div></figure><figure class="preview-item"><figcaption>Android</figcaption><div class="preview-slot"></div></figure></div></section><section class="features" aria-label="Features"><article class="feature"><span class="feature-icon"><svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M20 4c-6 0-12 4-13 13l-2 3"></path><path d="M16 8 8 16M11 12h6"></path></svg></span><h2>Tiny</h2><p>About 2.5 KB gzipped with zero runtime dependencies. React is the only peer.</p></article><article class="feature"><span class="feature-icon"><svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="4" y="4" width="16" height="7" rx="2"></rect><rect x="4" y="13" width="16" height="7" rx="2"></rect><path d="M8 7.5h.01M8 16.5h.01"></path></svg></span><h2>SSR-safe</h2><p>Hydration-safe and ships with “use client” for the Next.js App Router.</p></article><article class="feature"><span class="feature-icon"><svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3a9 9 0 1 0 0 18c1.1 0 1.5-.8 1.5-1.5 0-1.2-1-1.5-1-2.5s.7-1.5 1.7-1.5H17a4 4 0 0 0 4-4c0-4.7-4-8.5-9-8.5Z"></path><circle cx="7.5" cy="11" r="1" fill="currentColor"></circle><circle cx="10" cy="7" r="1" fill="currentColor"></circle><circle cx="15" cy="7.5" r="1" fill="currentColor"></circle></svg></span><h2>Easy to theme</h2><p>Restyle with CSS variables, or render your own markup with a hook.</p></article><article class="feature"><span class="feature-icon"><svg aria-hidden="true" focusable="false" width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="18" height="18" rx="3"></rect><path d="M8 9h6M11 9v8M15.5 13.5c0-1 1-1.5 2-1.5"></path></svg></span><h2>Typed</h2><p>Written in TypeScript. Props, translations and the hook are fully typed.</p></article></section><div class="doc"><section><h2 id="getting-started" class="heading">Getting started<a class="heading-anchor" href="#getting-started" aria-label="Permalink to this section">#</a></h2><p>The banner shows on Android and on iOS browsers that don&#x27;t have Apple&#x27;s native Smart App Banner (Chrome, Firefox, in-app browsers). It stays hidden in installed PWAs and after the user closes it.</p><h3 id="installation" class="heading">Installation<a class="heading-anchor" href="#installation" aria-label="Permalink to this section">#</a></h3><p>React 18 or 19 is the only peer dependency.</p><div class="code"><div class="code-head"><div class="code-tabs" role="tablist"><button type="button" role="tab" aria-selected="true" class="code-tab">npm</button><button type="button" role="tab" aria-selected="false" class="code-tab">pnpm</button><button type="button" role="tab" aria-selected="false" class="code-tab">yarn</button><button type="button" role="tab" aria-selected="false" class="code-tab">bun</button></div><button type="button" class="copy-btn" aria-label="Copy"><svg aria-hidden="true" focusable="false" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2.5"></rect><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"></path></svg><span>Copy</span></button></div><pre class="code-body"><code>npm install smartbanner-tsx</code></pre></div><h3 id="app-details" class="heading">Add your app details<a class="heading-anchor" href="#app-details" aria-label="Permalink to this section">#</a></h3><p>Put your App Store and Google Play IDs in meta tags, like for Apple&#x27;s own banner. The icon is taken from<!-- --> <code>apple-touch-icon</code>.</p><div class="code"><div class="code-head"><span class="code-title">index.html</span><button type="button" class="copy-btn" aria-label="Copy"><svg aria-hidden="true" focusable="false" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2.5"></rect><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"></path></svg><span>Copy</span></button></div><pre class="code-body"><code><span class="tok-tag">&lt;head</span>&gt;
+  <span class="tok-tag">&lt;meta</span> <span class="tok-attr">name</span>=<span class="tok-string">&quot;apple-itunes-app&quot;</span> <span class="tok-attr">content</span>=<span class="tok-string">&quot;app-id=544007664&quot;</span> /&gt;
+  <span class="tok-tag">&lt;meta</span> <span class="tok-attr">name</span>=<span class="tok-string">&quot;google-play-app&quot;</span> <span class="tok-attr">content</span>=<span class="tok-string">&quot;app-id=com.google.android.youtube&quot;</span> /&gt;
+  <span class="tok-tag">&lt;link</span> <span class="tok-attr">rel</span>=<span class="tok-string">&quot;apple-touch-icon&quot;</span> <span class="tok-attr">href</span>=<span class="tok-string">&quot;/icon.png&quot;</span> /&gt;
+<span class="tok-tag">&lt;/head</span>&gt;</code></pre></div><h3 id="usage" class="heading">Render the banner<a class="heading-anchor" href="#usage" aria-label="Permalink to this section">#</a></h3><div class="code"><div class="code-head"><span class="code-title">App.tsx</span><button type="button" class="copy-btn" aria-label="Copy"><svg aria-hidden="true" focusable="false" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2.5"></rect><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"></path></svg><span>Copy</span></button></div><pre class="code-body"><code><span class="tok-keyword">import</span> { SmartBanner } <span class="tok-keyword">from</span> <span class="tok-string">&quot;smartbanner-tsx&quot;</span>;
+<span class="tok-keyword">import</span> <span class="tok-string">&quot;smartbanner-tsx/style.css&quot;</span>;
 
-      <div class="syntax">
-        <code>
-          <span class="line select-all">npm install smartbanner-tsx</span>
-          <span class="line"></span>
-          <span class="line select-all">yarn add smartbanner-tsx</span>
-          <span class="line"></span>
-          <span class="line select-all">pnpm add smartbanner-tsx</span>
-        </code>
-      </div>
+<span class="tok-keyword">export</span> <span class="tok-keyword">function</span> <span class="tok-fn">App</span>() {
+  <span class="tok-keyword">return</span> <span class="tok-tag">&lt;SmartBanner</span> <span class="tok-attr">title</span>=<span class="tok-string">&quot;YouTube&quot;</span> <span class="tok-attr">author</span>=<span class="tok-string">&quot;Google LLC&quot;</span> /&gt;;
+}</code></pre></div><div class="tip"><p class="tip-title">No meta tags?</p><p>Pass the app IDs and icon as props instead. Props win over meta tags when both are set.</p><div class="code"><div class="code-head"><span class="code-title">App.tsx</span><button type="button" class="copy-btn" aria-label="Copy"><svg aria-hidden="true" focusable="false" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2.5"></rect><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"></path></svg><span>Copy</span></button></div><pre class="code-body"><code><span class="tok-tag">&lt;SmartBanner</span>
+  <span class="tok-attr">title</span>=<span class="tok-string">&quot;YouTube&quot;</span>
+  <span class="tok-attr">appId</span>={{ <span class="tok-attr">ios</span>: <span class="tok-string">&quot;544007664&quot;</span>, <span class="tok-attr">android</span>: <span class="tok-string">&quot;com.google.android.youtube&quot;</span> }}
+  <span class="tok-attr">icon</span>=<span class="tok-string">&quot;/icon.png&quot;</span>
+/&gt;</code></pre></div></div></section><section><h2 id="playground" class="heading">Playground<a class="heading-anchor" href="#playground" aria-label="Permalink to this section">#</a></h2><p>Change the content, theme and behavior. The code updates as you go — copy it when it looks right.</p><div class="playground"><div class="pg-preview"><div class="phone phone-ios"><div class="phone-screen"><div class="phone-status" aria-hidden="true"><span>9:41</span><span class="phone-notch"></span><span class="phone-status-icons"><i></i><i></i><i></i></span></div><div class="phone-viewport"><div class="site" style="padding-top:80px;padding-bottom:0" aria-hidden="true"><div class="site-nav"><span class="site-logo"></span><span class="site-burger"></span></div><div class="site-hero"></div><span class="sk sk-title"></span><span class="sk"></span><span class="sk sk-short"></span><div class="site-grid"><span></span><span></span></div><span class="sk"></span><span class="sk sk-short"></span></div></div><div class="phone-address" aria-hidden="true"><span class="phone-address-pill"><svg width="10" height="10" viewBox="0 0 24 24" aria-hidden="true"><path fill="currentColor" d="M7 10V7a5 5 0 0 1 10 0v3h1a1 1 0 0 1 1 1v9a1 1 0 0 1-1 1H6a1 1 0 0 1-1-1v-9a1 1 0 0 1 1-1h1Zm2 0h6V7a3 3 0 0 0-6 0v3Z"></path></svg>your-website.com</span></div><div class="phone-home" aria-hidden="true"></div></div></div><div class="events" aria-live="polite"><div class="events-head"><span>Events</span></div><p class="events-empty">Close or tap the banner…</p></div></div><div class="pg-panel"><div class="pg-quick"><div class="pg-quick-item"><span class="pg-quick-label">Platform</span><fieldset class="segmented" aria-label="Platform"><label class="segmented-item"><input type="radio" name=":R4mqr:" checked="" value="ios"/><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path fill="currentColor" stroke="none" d="M16.37 12.6c-.02-2.3 1.88-3.4 1.96-3.46-1.07-1.56-2.73-1.78-3.32-1.8-1.41-.15-2.76.83-3.47.83-.72 0-1.82-.81-3-.79-1.54.02-2.96.9-3.75 2.27-1.6 2.78-.41 6.89 1.15 9.14.76 1.1 1.67 2.34 2.86 2.3 1.15-.05 1.58-.74 2.97-.74 1.38 0 1.77.74 2.98.72 1.23-.02 2.01-1.12 2.76-2.23.87-1.28 1.23-2.51 1.25-2.58-.03-.01-2.39-.92-2.4-3.65ZM14.1 5.86c.63-.77 1.06-1.83.94-2.89-.91.04-2.01.61-2.66 1.37-.58.67-1.1 1.76-.96 2.8 1.02.08 2.05-.51 2.68-1.28Z"></path></svg>iOS</label><label class="segmented-item"><input type="radio" name=":R4mqr:" value="android"/><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M7 10.5v6.5a1 1 0 0 0 1 1h8a1 1 0 0 0 1-1v-6.5Z"></path><path d="M7 9.5a5 5 0 0 1 10 0"></path><path d="M8.5 6 7.2 4M15.5 6l1.3-2M10 18v2.5M14 18v2.5M4.5 11v4.5M19.5 11v4.5"></path><circle cx="10" cy="8" r=".4" fill="currentColor"></circle><circle cx="14" cy="8" r=".4" fill="currentColor"></circle></svg>Android</label></fieldset></div><div class="pg-quick-item"><span class="pg-quick-label">Placement</span><fieldset class="segmented" aria-label="Placement"><label class="segmented-item"><input type="radio" name=":R56qr:" checked="" value="top"/><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.5"></rect><path d="M5 8.5h14"></path><rect x="7" y="5" width="10" height="2" rx=".5" fill="currentColor"></rect></svg>Top</label><label class="segmented-item"><input type="radio" name=":R56qr:" value="bottom"/><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="3" width="14" height="18" rx="2.5"></rect><path d="M5 15.5h14"></path><rect x="7" y="17" width="10" height="2" rx=".5" fill="currentColor"></rect></svg>Bottom</label></fieldset></div></div><div class="card"><div class="tabs" role="tablist" aria-label="Settings"><button type="button" role="tab" aria-selected="true" class="tab">Content</button><button type="button" role="tab" aria-selected="false" class="tab">Theme</button><button type="button" role="tab" aria-selected="false" class="tab">Behavior</button></div><div class="form-grid" role="tabpanel"><label class="field"><span class="field-label">Title</span><input class="input" spellcheck="false" value="YouTube"/></label><label class="field"><span class="field-label">Author</span><input class="input" spellcheck="false" value="Google LLC"/></label><label class="field"><span class="field-label">Price<span class="field-hint">iOS</span></span><input class="input" spellcheck="false" value="Free"/></label><label class="field"><span class="field-label">Store text<span class="field-hint">iOS</span></span><input class="input" spellcheck="false" value="On the App Store"/></label><label class="field"><span class="field-label">Button</span><input class="input" spellcheck="false" value="View"/></label><label class="field"><span class="field-label">App ID<span class="field-hint">App Store</span></span><input class="input mono" spellcheck="false" value="544007664"/></label></div></div><div class="code"><div class="code-head"><div class="code-tabs" role="tablist"><button type="button" role="tab" aria-selected="true" class="code-tab">App.tsx</button><button type="button" role="tab" aria-selected="false" class="code-tab">styles.css</button></div><button type="button" class="copy-btn" aria-label="Copy"><svg aria-hidden="true" focusable="false" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2.5"></rect><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"></path></svg><span>Copy</span></button></div><pre class="code-body"><code><span class="tok-keyword">import</span> { SmartBanner } <span class="tok-keyword">from</span> <span class="tok-string">&quot;smartbanner-tsx&quot;</span>;
+<span class="tok-keyword">import</span> <span class="tok-string">&quot;smartbanner-tsx/style.css&quot;</span>;
 
-      <h2>Usage</h2>
-      <p class="text-secondary">Remember to add following meta tags in your HTML page: (Use YouTube app as example)</p>
+<span class="tok-keyword">export</span> <span class="tok-keyword">function</span> <span class="tok-fn">App</span>() {
+  <span class="tok-keyword">return</span> (
+    <span class="tok-tag">&lt;SmartBanner</span>
+      <span class="tok-attr">title</span>=<span class="tok-string">&quot;YouTube&quot;</span>
+      <span class="tok-attr">author</span>=<span class="tok-string">&quot;Google LLC&quot;</span>
+      <span class="tok-attr">appId</span>={{ <span class="tok-attr">ios</span>: <span class="tok-string">&quot;544007664&quot;</span>, <span class="tok-attr">android</span>: <span class="tok-string">&quot;com.google.android.youtube&quot;</span> }}
+    /&gt;
+  );
+}</code></pre></div></div></div></section><section><h2 id="customization" class="heading">Customization<a class="heading-anchor" href="#customization" aria-label="Permalink to this section">#</a></h2><p>Start with props, restyle with CSS variables, or take over the markup completely.</p><h3 id="props-and-translations" class="heading">Props and translations<a class="heading-anchor" href="#props-and-translations" aria-label="Permalink to this section">#</a></h3><p>Set texts, icon, links and placement. Missing translation keys fall back to English.</p><div class="code"><div class="code-head"><span class="code-title">App.tsx</span><button type="button" class="copy-btn" aria-label="Copy"><svg aria-hidden="true" focusable="false" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2.5"></rect><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"></path></svg><span>Copy</span></button></div><pre class="code-body"><code><span class="tok-tag">&lt;SmartBanner</span>
+  <span class="tok-attr">title</span>=<span class="tok-string">&quot;YouTube&quot;</span>
+  <span class="tok-attr">placement</span>=<span class="tok-string">&quot;bottom&quot;</span>
+  <span class="tok-attr">className</span>=<span class="tok-string">&quot;my-banner&quot;</span>
+  <span class="tok-attr">translations</span>={{ <span class="tok-attr">button</span>: <span class="tok-string">&quot;Open&quot;</span>, <span class="tok-attr">price_ios</span>: <span class="tok-string">&quot;GET&quot;</span> }}
+  <span class="tok-attr">onInstall</span>={(platform) =&gt; <span class="tok-fn">track</span>(<span class="tok-string">&quot;app_banner_install&quot;</span>, platform)}
+/&gt;</code></pre></div><h3 id="css-variables" class="heading">CSS variables<a class="heading-anchor" href="#css-variables" aria-label="Permalink to this section">#</a></h3><p>Override variables globally, per platform with<!-- --> <code>.smartbanner-ios</code> or <code>.smartbanner-android</code>, or inline with the <code>style</code> prop.</p><div class="code"><div class="code-head"><span class="code-title">styles.css</span><button type="button" class="copy-btn" aria-label="Copy"><svg aria-hidden="true" focusable="false" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2.5"></rect><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"></path></svg><span>Copy</span></button></div><pre class="code-body"><code><span class="tok-comment">/* Everywhere */</span>
+:root {
+  <span class="tok-variable">--smartbanner-button-bg</span>: <span class="tok-number">#e11d48</span>;
+  <span class="tok-variable">--smartbanner-button-radius</span>: <span class="tok-number">8px</span>;
+}
 
-      <div class="syntax">
-        <div class="header">
-          <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" xmlns:xlink="http://www.w3.org/1999/xlink">
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M17.3492 7.24076C17.7686 6.88134 18.3999 6.9299 18.7593 7.34923L21.7593 10.8492C22.0803 11.2237 22.0803 11.7763 21.7593 12.1508L18.7593 15.6508C18.3999 16.0701 17.7686 16.1187 17.3492 15.7593C16.9299 15.3999 16.8813 14.7686 17.2408 14.3492L19.6829 11.5L17.2408 8.65081C16.8813 8.23148 16.9299 7.60018 17.3492 7.24076Z" fill="#f06529"></path>
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M6.65079 7.24076C7.07012 7.60018 7.11868 8.23148 6.75926 8.65081L4.31708 11.5L6.75926 14.3492C7.11868 14.7686 7.07012 15.3999 6.65079 15.7593C6.23147 16.1187 5.60017 16.0701 5.24074 15.6508L2.24074 12.1508C1.91975 11.7763 1.91975 11.2237 2.24074 10.8492L5.24074 7.34923C5.60017 6.9299 6.23147 6.88134 6.65079 7.24076Z" fill="#f06529"></path>
-            <path fill-rule="evenodd" clip-rule="evenodd" d="M14.7985 3.04579C15.3257 3.21052 15.6195 3.7714 15.4547 4.29854L10.4547 20.2985C10.29 20.8257 9.72914 21.1195 9.20199 20.9547C8.67485 20.79 8.38105 20.2291 8.54579 19.702L13.5458 3.70199C13.7105 3.17485 14.2714 2.88105 14.7985 3.04579Z" fill="#f06529"></path>
-          </svg>
-          index.html
-        </div>
-        <code>
-          <span class="line">&lt;<span style="color:var(--c-c)">head</span>&gt;</span>
-          <span class="line">  &lt;<span style="color:var(--c-c)">meta</span> <span style="color:var(--c-v)">name</span>=<span style="color:var(--c-s)">"apple-itunes-app"</span> <span style="color:var(--c-v)">content</span>=<span style="color:var(--c-s)">"app-id=544007664"</span> /&gt;</span>
-          <span class="line">  &lt;<span style="color:var(--c-c)">meta</span> <span style="color:var(--c-v)">name</span>=<span style="color:var(--c-s)">"google-play-app"</span> <span style="color:var(--c-v)">content</span>=<span style="color:var(--c-s)">"app-id=com.google.android.youtube"</span> /&gt;</span>
-          <span class="line">  &lt;<span style="color:var(--c-c)">link</span> <span style="color:var(--c-v)">rel</span>=<span style="color:var(--c-s)">"apple-touch-icon"</span> <span style="color:var(--c-v)">href</span>=<span style="color:var(--c-s)">"icon.webp"</span> /&gt;</span>
-          <span class="line">  &lt;<span style="color:var(--c-c)">link</span> <span style="color:var(--c-v)">rel</span>=<span style="color:var(--c-s)">"android-touch-icon"</span> <span style="color:var(--c-v)">href</span>=<span style="color:var(--c-s)">"icon.webp"</span> /&gt;</span>
-          <span class="line">&lt;/<span style="color:var(--c-c)">head</span>&gt;</span>
-        </code>
-      </div>
+<span class="tok-comment">/* Only on Android */</span>
+.smartbanner-android {
+  <span class="tok-variable">--smartbanner-bg</span>: <span class="tok-number">#202124</span>;
+  <span class="tok-variable">--smartbanner-title-color</span>: <span class="tok-number">#ffffff</span>;
+}</code></pre></div><div class="table-wrap"><table><thead><tr><th>Variable</th><th>Controls</th></tr></thead><tbody><tr><td><code>--smartbanner-bg</code></td><td>Background</td></tr><tr><td><code>--smartbanner-title-color</code></td><td>Title color</td></tr><tr><td><code>--smartbanner-text-color</code></td><td>Author and price color</td></tr><tr><td><code>--smartbanner-button-bg</code></td><td>Button background</td></tr><tr><td><code>--smartbanner-button-color</code></td><td>Button text color</td></tr><tr><td><code>--smartbanner-button-radius</code></td><td>Button corner radius</td></tr><tr><td><code>--smartbanner-close-color</code></td><td>Close icon color</td></tr><tr><td><code>--smartbanner-icon-size</code></td><td>Icon size (56px)</td></tr><tr><td><code>--smartbanner-icon-radius</code></td><td>Icon corner radius</td></tr><tr><td><code>--smartbanner-height</code></td><td>Banner height and page offset (80px)</td></tr><tr><td><code>--smartbanner-font</code></td><td>Font family</td></tr><tr><td><code>--smartbanner-border</code></td><td>Border between banner and page</td></tr><tr><td><code>--smartbanner-shadow</code></td><td>Box shadow</td></tr><tr><td><code>--smartbanner-z-index</code></td><td>Stacking order (9998)</td></tr><tr><td><code>--smartbanner-max-width</code></td><td>Max width of the content</td></tr></tbody></table></div><h3 id="headless-hook" class="heading">Headless hook<a class="heading-anchor" href="#headless-hook" aria-label="Permalink to this section">#</a></h3><p><code>useSmartBanner()</code> gives you device detection, store links and the cookie logic. You render whatever you like.</p><div class="code"><div class="code-head"><span class="code-title">MyBanner.tsx</span><button type="button" class="copy-btn" aria-label="Copy"><svg aria-hidden="true" focusable="false" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2.5"></rect><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"></path></svg><span>Copy</span></button></div><pre class="code-body"><code><span class="tok-keyword">import</span> { useSmartBanner } <span class="tok-keyword">from</span> <span class="tok-string">&quot;smartbanner-tsx&quot;</span>;
 
-      <p class="text-secondary">And SmartBanner component usage:</p>
+<span class="tok-keyword">export</span> <span class="tok-keyword">function</span> <span class="tok-fn">MyBanner</span>() {
+  <span class="tok-keyword">const</span> banner = <span class="tok-fn">useSmartBanner</span>({
+    <span class="tok-attr">appId</span>: { <span class="tok-attr">ios</span>: <span class="tok-string">&quot;544007664&quot;</span>, <span class="tok-attr">android</span>: <span class="tok-string">&quot;com.google.android.youtube&quot;</span> },
+  });
 
-      <div class="syntax">
-        <div class="header">
-          <svg aria-hidden="true" focusable="false" xmlns="http://www.w3.org/2000/svg" width="20" height="20" viewBox="0 0 24 24" fill="none" class="injected-svg" data-src="https://cdn.hugeicons.com/icons/react-stroke-standard.svg" xmlns:xlink="http://www.w3.org/1999/xlink" role="img" color="#679ad1">
-            <path d="M8 12C8 6.47715 9.79086 2 12 2C14.2091 2 16 6.47715 16 12C16 17.5228 14.2091 22 12 22C9.79086 22 8 17.5228 8 12Z" stroke="#679ad1" stroke-width="1"></path>
-            <path d="M9.97529 8.58334C14.8173 5.85973 19.649 5.1815 20.7673 7.06847C21.8855 8.95544 18.8667 12.6931 14.0247 15.4167C9.18269 18.1403 4.35097 18.8185 3.23275 16.9315C2.11454 15.0446 5.13327 11.3069 9.97529 8.58334Z" stroke="#679ad1" stroke-width="1"></path>
-            <path d="M14.0247 8.58334C18.8667 11.3069 21.8855 15.0446 20.7672 16.9315C19.649 18.8185 14.8173 18.1403 9.97529 15.4167C5.13327 12.6931 2.11454 8.95544 3.23275 7.06847C4.35097 5.18151 9.18269 5.85973 14.0247 8.58334Z" stroke="#679ad1" stroke-width="1"></path>
-            <path d="M12 12V12.01" stroke="#679ad1" stroke-width="1" stroke-linecap="round"></path>
-          </svg>
-          App.tsx
-        </div>
-        <code>
-          <span class="line"><span style="color:var(--c-g)">// ...</span></span>
-          <span class="line"><span style="color:var(--c-p)">import</span><span style="color:var(--c-y)"> { </span><span style="color:var(--c-v)">SmartBanner</span><span style="color:var(--c-y)"> } </span><span style="color:var(--c-p)">from </span><span style="color:var(--c-s)">"smartbanner-tsx"</span><span>;</span></span>
-          <span class="line"><span style="color:var(--c-p)">import </span><span style="color:var(--c-s)">"smartbanner-tsx/dist/style.css"</span><span>;</span></span>
-          <span class="line"></span>
-          <span class="line"><span style="color:var(--c-g)">// ...</span></span>
-          <span class="line"></span>
-          <span class="line"><span style="color:var(--c-p)">return (</span></span>
-          <span class="line">  &lt;<span style="color:var(--c-n)">SmartBanner</span> /&gt;</span>
-          <span class="line"><span style="color:var(--c-p)">)</span>;</span>
-        </code>
-      </div>
+  <span class="tok-keyword">if</span> (!banner.visible) <span class="tok-keyword">return</span> <span class="tok-keyword">null</span>;
 
-      <h2 id="props">Props</h2>
+  <span class="tok-keyword">return</span> (
+    <span class="tok-tag">&lt;div</span> <span class="tok-attr">className</span>=<span class="tok-string">&quot;my-banner&quot;</span>&gt;
+      <span class="tok-tag">&lt;img</span> <span class="tok-attr">src</span>={banner.icon} <span class="tok-attr">alt</span>=<span class="tok-string">&quot;&quot;</span> /&gt;
+      <span class="tok-tag">&lt;span</span>&gt;{banner.description}<span class="tok-tag">&lt;/span</span>&gt;
+      <span class="tok-tag">&lt;a</span> <span class="tok-attr">href</span>={banner.link} <span class="tok-attr">onClick</span>={banner.install}&gt;{banner.t.button}<span class="tok-tag">&lt;/a</span>&gt;
+      <span class="tok-tag">&lt;button</span> <span class="tok-attr">onClick</span>={banner.close}&gt;{banner.t.close}<span class="tok-tag">&lt;/button</span>&gt;
+    <span class="tok-tag">&lt;/div</span>&gt;
+  );
+}</code></pre></div></section><section><h2 id="api" class="heading">API<a class="heading-anchor" href="#api" aria-label="Permalink to this section">#</a></h2><p>All props are optional. The same options, except layout props, work with <code>useSmartBanner()</code>.</p><div class="search"><svg aria-hidden="true" focusable="false" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="6.5"></circle><path d="m20 20-4.4-4.4"></path></svg><input type="search" placeholder="Filter props" aria-label="Filter props" value=""/></div><div class="table-wrap"><table class="props-table"><thead><tr><th>Prop</th><th>Type</th><th>Default</th><th>Description</th></tr></thead><tbody><tr id="prop-title"><td><code>title</code></td><td><code>string</code></td><td>—</td><td>App title displayed in the banner.</td></tr><tr id="prop-author"><td><code>author</code></td><td><code>string</code></td><td>—</td><td>Name of the app author or publisher.</td></tr><tr id="prop-translations"><td><code>translations</code></td><td><code>Partial&lt;Translations&gt;</code></td><td><code>English texts</code></td><td>UI texts: button, price_ios, price_android, store_ios, store_android, close. Pass only the keys you want to change.</td></tr><tr id="prop-icon"><td><code>icon</code></td><td><code>string</code></td><td><code>touch icon link</code></td><td>App icon URL. By default it is read from the touch icon link tags.</td></tr><tr id="prop-appId"><td><code>appId</code></td><td><code>{ ios?, android? }</code></td><td>—</td><td>App IDs per platform. When set, the meta tags are not needed.</td></tr><tr id="prop-meta"><td><code>meta</code></td><td><code>{ ios?, android? }</code></td><td><code>apple-itunes-app, google-play-app</code></td><td>Names of the meta tags to read `app-id=...` from.</td></tr><tr id="prop-url"><td><code>url</code></td><td><code>{ ios?, android? }</code></td><td>—</td><td>Custom store links. Override the generated ones.</td></tr><tr id="prop-storeLang"><td><code>storeLang</code></td><td><code>string</code></td><td><code>from navigator.language</code></td><td>Country code used in the App Store link.</td></tr><tr id="prop-force"><td><code>force</code></td><td><code>&#x27;ios&#x27; | &#x27;android&#x27;</code></td><td>—</td><td>Always show the banner for this platform. Useful for testing and previews.</td></tr><tr id="prop-ignoreIosVersion"><td><code>ignoreIosVersion</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Show the banner in iOS Safari too, even though Safari has a native banner.</td></tr><tr id="prop-daysHidden"><td><code>daysHidden</code></td><td><code>number</code></td><td><code>15</code></td><td>Days to hide the banner after it is closed.</td></tr><tr id="prop-daysReminder"><td><code>daysReminder</code></td><td><code>number</code></td><td><code>90</code></td><td>Days to hide the banner after the button is clicked.</td></tr><tr id="prop-placement"><td><code>placement</code></td><td><code>&#x27;top&#x27; | &#x27;bottom&#x27;</code></td><td><code>&#x27;top&#x27;</code></td><td>Where the banner is shown.</td></tr><tr id="prop-disableHtmlMargin"><td><code>disableHtmlMargin</code></td><td><code>boolean</code></td><td><code>false</code></td><td>Don&#x27;t add a margin to &lt;html&gt; to make room for the banner.</td></tr><tr id="prop-withPortal"><td><code>withPortal</code></td><td><code>boolean</code></td><td><code>true</code></td><td>Render the banner through a React portal.</td></tr><tr id="prop-portalTargetId"><td><code>portalTargetId</code></td><td><code>string</code></td><td><code>document.body</code></td><td>ID of the element to render the portal into.</td></tr><tr id="prop-className"><td><code>className</code></td><td><code>string</code></td><td>—</td><td>Extra class name for the banner root.</td></tr><tr id="prop-style"><td><code>style</code></td><td><code>CSSProperties</code></td><td>—</td><td>Inline styles for the banner root. Handy for CSS variables.</td></tr><tr id="prop-target"><td><code>target</code></td><td><code>string</code></td><td><code>&#x27;_blank&#x27;</code></td><td>Target attribute of the store link.</td></tr><tr id="prop-onShow"><td><code>onShow</code></td><td><code>(platform) =&gt; void</code></td><td>—</td><td>Called when the banner becomes visible.</td></tr><tr id="prop-onClose"><td><code>onClose</code></td><td><code>(platform) =&gt; void</code></td><td>—</td><td>Called when the close button is clicked.</td></tr><tr id="prop-onInstall"><td><code>onInstall</code></td><td><code>(platform) =&gt; void</code></td><td>—</td><td>Called when the install/view button is clicked.</td></tr></tbody></table></div><h3 id="hook-result" class="heading">useSmartBanner() result<a class="heading-anchor" href="#hook-result" aria-label="Permalink to this section">#</a></h3><div class="table-wrap"><table><thead><tr><th>Field</th><th>Type</th><th>Description</th></tr></thead><tbody><tr><td><code>visible</code></td><td><code>boolean</code></td><td>Whether the banner should be shown now.</td></tr><tr><td><code>platform</code></td><td><code>&#x27;ios&#x27; | &#x27;android&#x27; | undefined</code></td><td>Detected or forced platform.</td></tr><tr><td><code>appId</code></td><td><code>string</code></td><td>App ID for the platform.</td></tr><tr><td><code>link</code></td><td><code>string</code></td><td>Store link.</td></tr><tr><td><code>icon</code></td><td><code>string</code></td><td>Icon URL.</td></tr><tr><td><code>description</code></td><td><code>string</code></td><td>Price and store text, e.g. “Free - On the App Store”.</td></tr><tr><td><code>t</code></td><td><code>Translations</code></td><td>Texts merged with the defaults.</td></tr><tr><td><code>close</code></td><td><code>() =&gt; void</code></td><td>Hides the banner for daysHidden days.</td></tr><tr><td><code>install</code></td><td><code>() =&gt; void</code></td><td>Hides the banner for daysReminder days.</td></tr></tbody></table></div><h3 id="utilities" class="heading">Utilities<a class="heading-anchor" href="#utilities" aria-label="Permalink to this section">#</a></h3><ul class="list"><li><code>resetSmartBanner()</code> clears the “closed” and “installed” cookies, so the banner can show again.</li><li><code>detectDevice()</code> and <code>resolvePlatform()</code> <!-- -->are the device detection the banner uses.</li></ul></section><section><h2 id="migration" class="heading">Migrating to v2<a class="heading-anchor" href="#migration" aria-label="Permalink to this section">#</a></h2><p>v2 keeps the props, meta tags, class names and markup of v1. The visible change is the new default look. To keep the v1 look, change one import:</p><div class="code"><div class="code-head"><span class="code-title">App.tsx</span><button type="button" class="copy-btn" aria-label="Copy"><svg aria-hidden="true" focusable="false" width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="8" y="8" width="12" height="12" rx="2.5"></rect><path d="M16 8V6.5A2.5 2.5 0 0 0 13.5 4h-7A2.5 2.5 0 0 0 4 6.5v7A2.5 2.5 0 0 0 6.5 16H8"></path></svg><span>Copy</span></button></div><pre class="code-body"><code><span class="tok-comment">// v1</span>
+<span class="tok-keyword">import</span> <span class="tok-string">&quot;smartbanner-tsx/dist/style.css&quot;</span>;
 
-      <div class="table">
-        <table>
-          <thead>
-            <tr>
-              <th>Prop</th>
-              <th>Default</th>
-              <th>Description</th>
-            </tr>
-          </thead>
-          <tbody>
-            <tr>
-              <td><code>title</code></td>
-              <td>─</td>
-              <td><code>string</code> <p>App title displayed in the banner.</p></td>
-            </tr>
-            <tr>
-              <td><code>author</code></td>
-              <td>─</td>
-              <td><code>string</code> <p>Name of the app author or publisher.</p></td>
-            </tr>
-            <tr>
-              <td><code>translations</code></td>
-              <td><code style="display:inline-block;">
-                {<br/>
-                 &nbsp; button: "View",<br />
-                 &nbsp; price_ios: "Free",<br />
-                 &nbsp; price_android: "Free",<br />
-                 &nbsp; store_ios: "On the App Store",<br />
-                 &nbsp; store_android: "In Google Play",<br />
-                }
-              </code></td>
-              <td><code>Record&lt;string, string&gt;</code> <p>Custom UI text translations.</p></td>
-            </tr>
-            <tr>
-              <td><code>url</code></td>
-              <td><code style="display:inline-block;">{
-                ios: "",
-                android: ""
-              }</code></td>
-              <td><code>Record&lt;'ios' | 'android', string&gt;</code> <p>Custom app store URLs for each platform.</p></td>
-            </tr>
-            <tr>
-              <td><code>meta</code></td>
-              <td><code style="display:inline-block;">{<br />
-                &nbsp; ios: "apple-itunes-app",<br />
-                &nbsp; android: "google-play-app"<br />
-              }</code></td>
-              <td><code>Record&lt;'ios' | 'android', string&gt;</code> <p>The custom meta tag name.<br />
-                It provide an option to enforce using custom meta tag to show smart banner.</p></td>
-            </tr>
-            <tr>
-              <td><code>placement</code></td>
-              <td><code>'top'</code></td>
-              <td><code>'top' | 'bottom'</code> <p>Banner position on the screen: either at the top or bottom.</p></td>
-            </tr>
-            <tr>
-              <td><code>force</code></td>
-              <td>─</td>
-              <td><code>'ios' | 'android'</code> <p>Force banner to show for a specific platform (useful for testing).</p></td>
-            </tr>
-            <tr>
-              <td><code>ignoreIosVersion</code></td>
-              <td><code>false</code></td>
-              <td><code>boolean</code> <p>If <code>true</code>, the banner will show even on iOS versions that support native Smart Banners.</p></td>
-            </tr>
-            <tr>
-              <td><code>daysHidden</code></td>
-              <td><code>15</code></td>
-              <td>
-                <code>number</code>
-                <p>Number of days to hide the banner after the close button is clicked.</p>
-              </td>
-            </tr>
-            <tr>
-              <td><code>daysReminder</code></td>
-              <td><code>90</code></td>
-              <td>
-                <code>number</code>
-                <p>Number of days to hide the banner after the install/view button is clicked.</p>
-              </td>
-            </tr>
-            <tr>
-              <td><code>storeLang</code></td>
-              <td><code>navigator.language</code> or <code>'us'</code></td>
-              <td><code>string</code> <p>Language code used to generate App Store or Play Store URLs.</p></td>
-            </tr>
-            <tr>
-              <td><code>disableHtmlMargin</code></td>
-              <td><code>false</code></td>
-              <td><code>boolean</code> <p>Disable HTML margin.</p></td>
-            </tr>
-            <tr>
-              <td><code>withPortal</code></td>
-              <td><code>true</code></td>
-              <td><code>boolean</code> <p>Whether to render the banner using a React Portal.</p></td>
-            </tr>
-            <tr>
-              <td><code>portalTargetId</code></td>
-              <td>─</td>
-              <td><code>string</code> <p>Optional target element ID for the portal. Defaults to document.body if not provided.</p></td>
-            </tr>
-            <tr>
-              <td style="color:var(--c-y)"><code>onClose</code></td>
-              <td>─</td>
-              <td><code>() => void</code> <p>Optional callback triggered when the close button is clicked.</p></td>
-            </tr>
-            <tr>
-              <td style="color:var(--c-y)"><code>onInstall</code></td>
-              <td>─</td>
-              <td><code>() => void</code> <p>Optional callback triggered when the install/view button is clicked.</p></td>
-            </tr>
-          </tbody>
-        </table>
-      </div>
-
-    </main>
-    <footer class="container">
-      <p>
-        © 2025 <a href="https://madiyar.dev" target="_blank" rel="noopener noreferrer">madiyar</a>
-      </p>
-
-      <p>
-        based on <a href="https://github.com/patw0929/react-smartbanner" target="_blank" rel="noopener noreferrer" style="color: var(--c-c);">react-smartbanner</a>
-      </p>
-    </footer>
+<span class="tok-comment">// v2, keeping the v1 look</span>
+<span class="tok-keyword">import</span> <span class="tok-string">&quot;smartbanner-tsx/classic.css&quot;</span>;</code></pre></div><ul class="list"><li><code>ua-parser-js</code> and <code>js-cookie</code> are no longer dependencies. Install them yourself only if your own code imports them.</li><li>The <code>&lt;html&gt;</code> margin classes are added only while the banner is visible, and removed on unmount.</li><li>Cookie names are unchanged, so users who closed the banner in v1 won&#x27;t see it again early.</li></ul><p><a class="link" href="https://github.com/madiyar/smartbanner-tsx/blob/main/MIGRATION.md">Read the full migration guide →</a></p></section><section><h2 id="faq" class="heading">FAQ<a class="heading-anchor" href="#faq" aria-label="Permalink to this section">#</a></h2><div class="faq"><details><summary>Why don&#x27;t I see the banner on my iPhone in Safari?</summary><p>Safari on iOS shows Apple&#x27;s native Smart App Banner from the apple-itunes-app meta tag, so this banner is skipped there to avoid two banners. It shows in Chrome, Firefox and in-app browsers on iOS, and on Android. Set ignoreIosVersion to show it in Safari too.</p></details><details><summary>Why doesn&#x27;t the banner show on desktop?</summary><p>It only targets phones and tablets. Use the force prop (force=&quot;ios&quot; or force=&quot;android&quot;) to preview it on desktop.</p></details><details><summary>I closed the banner and it doesn&#x27;t come back. How do I test it again?</summary><p>Closing sets the smartbanner-closed cookie for daysHidden days, and tapping the button sets smartbanner-installed for daysReminder days. Call resetSmartBanner() or delete these cookies.</p></details><details><summary>Does it work with Next.js, Remix or other SSR frameworks?</summary><p>Yes. Nothing is rendered on the server, everything is read after mount, and the package ships with &quot;use client&quot;, so you can render it from a Next.js App Router layout.</p></details><details><summary>Can I use my own design?</summary><p>Yes. Restyle the default banner with CSS variables and class names, or use the useSmartBanner() hook and render your own markup.</p></details><details><summary>How is it different from react-smartbanner?</summary><p>smartbanner-tsx is written in TypeScript, has no runtime dependencies, supports React 18 and 19, is SSR-safe and offers CSS variables and a headless hook.</p></details></div></section></div></main><footer class="footer"><p>Released under the MIT License.</p><p>Copyright © 2025-present<!-- --> <a href="https://madiyar.dev" target="_blank" rel="noreferrer">madiyar</a> · <a href="https://www.npmjs.com/package/smartbanner-tsx" target="_blank" rel="noreferrer">npm</a> · <a href="llms.txt">llms.txt</a></p></footer></div>
+    <noscript>This demo needs JavaScript.</noscript>
   </body>
 </html>
