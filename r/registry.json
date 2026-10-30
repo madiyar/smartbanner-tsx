@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry.json",
+  "name": "smartbanner-tsx",
+  "homepage": "https://madiyar.github.io/smartbanner-tsx",
+  "items": [
+    {
+      "name": "smart-banner",
+      "type": "registry:component",
+      "title": "Smart Banner",
+      "description": "Smart App Banner for iOS and Android styled with Tailwind and shadcn/ui. The logic comes from the smartbanner-tsx package.",
+      "dependencies": ["smartbanner-tsx@^2.0.0", "lucide-react"],
+      "registryDependencies": ["button"],
+      "files": [
+        {
+          "path": "registry/smart-banner.tsx",
+          "type": "registry:component"
+        }
+      ],
+      "docs": "Pass your app IDs with the appId prop or add the apple-itunes-app / google-play-app meta tags. Preview on desktop with force=\"ios\" or force=\"android\". Docs: https://madiyar.github.io/smartbanner-tsx/#shadcn"
+    }
+  ]
+}

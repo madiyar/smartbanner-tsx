@@ -162,6 +162,26 @@ export function MyBanner() {
 }
 ```
 
+### 4. shadcn/ui
+
+Using [shadcn/ui](https://ui.shadcn.com)? Add a Tailwind version of the banner that uses your theme tokens and `Button`:
+
+```bash
+npx shadcn@latest add https://madiyar.github.io/smartbanner-tsx/r/smart-banner.json
+```
+
+It installs `components/smart-banner.tsx`, a small component on top of `useSmartBanner()` from this package. You own the markup; detection, store links and cookies still come from `smartbanner-tsx`, so `npm update` brings in fixes. It takes the same options as the hook, plus `placement` and `className`:
+
+```tsx
+import { SmartBanner } from "@/components/smart-banner";
+
+<SmartBanner
+  title="YouTube"
+  author="Google LLC"
+  appId={{ ios: "544007664", android: "com.google.android.youtube" }}
+/>
+```
+
 ## Props
 
 | Prop | Type | Default | Description |
@@ -200,7 +220,7 @@ It only targets phones and tablets. Use `force="ios"` or `force="android"` to pr
 Closing sets the `smartbanner-closed` cookie for `daysHidden` days, tapping the button sets `smartbanner-installed` for `daysReminder` days. Call `resetSmartBanner()` or delete the cookies.
 
 **Can I use my own design?**
-Yes: CSS variables and class names for small changes, `useSmartBanner()` for fully custom markup.
+Yes: CSS variables and class names for small changes, `useSmartBanner()` for fully custom markup, or the shadcn/ui component for a Tailwind version you can edit.
 
 **How is it different from react-smartbanner?**
 TypeScript, zero runtime dependencies, React 18 and 19 support, SSR-safe, CSS variables and a headless hook.
@@ -217,7 +237,7 @@ pnpm dev          # demo with hot reload (imports the library from src/)
 pnpm test         # unit tests
 pnpm typecheck
 pnpm build        # library → dist/
-pnpm build:docs   # demo → build/
+pnpm build:docs   # shadcn registry → docs/public/r/, then demo → build/
 ```
 
 ### Releases

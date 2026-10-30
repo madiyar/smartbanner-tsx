@@ -1,0 +1,22 @@
+{
+  "$schema": "https://ui.shadcn.com/schema/registry-item.json",
+  "name": "smart-banner",
+  "title": "Smart Banner",
+  "description": "Smart App Banner for iOS and Android styled with Tailwind and shadcn/ui. The logic comes from the smartbanner-tsx package.",
+  "dependencies": [
+    "smartbanner-tsx@^2.0.0",
+    "lucide-react"
+  ],
+  "registryDependencies": [
+    "button"
+  ],
+  "files": [
+    {
+      "path": "registry/smart-banner.tsx",
+      "content": "\"use client\";\n\nimport { XIcon } from \"lucide-react\";\nimport { type SmartBannerOptions, useSmartBanner } from \"smartbanner-tsx\";\n\nimport { Button, buttonVariants } from \"@/components/ui/button\";\nimport { cn } from \"@/lib/utils\";\n\nexport interface SmartBannerProps extends SmartBannerOptions {\n  /**\n   * Where the banner floats: at the top or the bottom of the screen.\n   * @default \"top\"\n   */\n  placement?: \"top\" | \"bottom\";\n  /** Extra classes for the banner container. */\n  className?: string;\n}\n\n/**\n * Smart App Banner styled with Tailwind and shadcn/ui tokens.\n * Device detection, store links and the \"closed\"/\"installed\" cookies come\n * from the `smartbanner-tsx` package, so you keep getting its fixes.\n */\nexport function SmartBanner({\n  title,\n  author,\n  placement = \"top\",\n  className,\n  ...options\n}: SmartBannerProps) {\n  const { visible, platform, link, icon, description, t, close, install } =\n    useSmartBanner(options);\n\n  if (!visible) return null;\n\n  return (\n    <aside\n      aria-label={title || undefined}\n      data-slot=\"smart-banner\"\n      data-platform={platform}\n      data-placement={placement}\n      className={cn(\n        \"fixed inset-x-2 z-50 mx-auto flex max-w-md items-center gap-3 rounded-xl border bg-background p-3 text-foreground shadow-lg\",\n        placement === \"top\" ? \"top-2\" : \"bottom-2\",\n        className,\n      )}\n    >\n      <Button\n        type=\"button\"\n        variant=\"ghost\"\n        size=\"icon\"\n        aria-label={t.close}\n        onClick={close}\n        className=\"size-7 shrink-0 text-muted-foreground\"\n      >\n        <XIcon />\n      </Button>\n      {icon ? (\n        <img\n          src={icon}\n          alt=\"\"\n          width={48}\n          height={48}\n          className=\"size-12 shrink-0 rounded-xl border object-cover\"\n        />\n      ) : null}\n      <div className=\"min-w-0 flex-1 leading-tight\">\n        {title ? (\n          <p className=\"truncate text-sm font-semibold\">{title}</p>\n        ) : null}\n        {author ? (\n          <p className=\"truncate text-xs text-muted-foreground\">{author}</p>\n        ) : null}\n        {description ? (\n          <p className=\"truncate text-xs text-muted-foreground\">\n            {description}\n          </p>\n        ) : null}\n      </div>\n      <a\n        href={link}\n        target=\"_blank\"\n        rel=\"noopener noreferrer\"\n        onClick={install}\n        className={cn(buttonVariants({ size: \"sm\" }), \"shrink-0 rounded-full\")}\n      >\n        {t.button}\n      </a>\n    </aside>\n  );\n}\n",
+      "type": "registry:component"
+    }
+  ],
+  "docs": "Pass your app IDs with the appId prop or add the apple-itunes-app / google-play-app meta tags. Preview on desktop with force=\"ios\" or force=\"android\". Docs: https://madiyar.github.io/smartbanner-tsx/#shadcn",
+  "type": "registry:component"
+}
