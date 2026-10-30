@@ -88,6 +88,14 @@ describe("<SmartBanner />", () => {
     ).toBe("https://example.com/app");
   });
 
+  it("renders an <aside> landmark named after the app", async () => {
+    await render({ force: "ios", appId: { ios: "1" }, title: "My App" });
+
+    const root = banner();
+    expect(root?.tagName).toBe("ASIDE");
+    expect(root?.getAttribute("aria-label")).toBe("My App");
+  });
+
   it("keeps the v1 markup", async () => {
     await render({ force: "ios", appId: { ios: "1" }, icon: "/icon.png" });
 

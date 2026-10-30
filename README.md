@@ -81,7 +81,7 @@ export default function RootLayout({ children }: { children: React.ReactNode }) 
 
 ## Upgrading from v1
 
-v2 keeps the v1 props, meta tags, class names and markup. The visible change is the new default look. To keep the v1 look, import the classic styles:
+v2 keeps the v1 props, meta tags, class names and inner markup (the root is now an `<aside>`, so select it with `.smartbanner`, not `div.smartbanner`). The visible change is the new default look. To keep the v1 look, import the classic styles:
 
 ```diff
 - import "smartbanner-tsx/dist/style.css";

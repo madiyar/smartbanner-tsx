@@ -1,6 +1,6 @@
 # Migrating from v1 to v2
 
-v2 keeps the same component, props, meta tags, class names and markup. For most apps the upgrade is:
+v2 keeps the same component, props, meta tags, class names and inner markup. For most apps the upgrade is:
 
 ```bash
 npm install smartbanner-tsx@2
@@ -24,7 +24,8 @@ That's it. Everything below is a detailed list, so you can check whether anythin
 | ⚠️ | `<html>` classes are set only while the banner is visible | Only matters if your CSS targets `.smartbanner-margin-top` / `-bottom` without `.smartbanner-show` |
 | ℹ️ | Build target is ES2018 (was ES2015) | Nothing for browsers from 2018+ (iOS 12+, Android Chrome 64+) |
 | ℹ️ | App Store links use `apps.apple.com`, Play links use `https` | Nothing |
-| ✅ | Meta tags, props, class names, markup, cookie names | Unchanged |
+| ℹ️ | The banner root is `<aside>` (was `<div role="complementary">`) | Only matters if your CSS or tests select `div.smartbanner` |
+| ✅ | Meta tags, props, class names, inner markup, cookie names | Unchanged |
 
 ## Breaking changes
 
@@ -63,6 +64,7 @@ v1 always added `smartbanner-margin-top` (or `-bottom`) to `<html>`, and `smartb
 
 - iPads in "desktop website" mode are now detected as iOS. In Safari they still get Apple's native banner; in Chrome or Firefox for iPad they now see this banner.
 - The store country is read correctly from locales with a script, e.g. `zh-Hant-TW` → `tw` (v1 returned `hant`).
+- The banner root is an `<aside>` instead of `<div role="complementary">`. Screen readers announce the same landmark, and both stylesheets select it by class, so only selectors like `div.smartbanner` need updating (use `.smartbanner`).
 - `javascript:`, `data:` and `vbscript:` links in the `url` prop are replaced with `#`.
 - Works in Next.js App Router server components: the package ships with `"use client"`.
 

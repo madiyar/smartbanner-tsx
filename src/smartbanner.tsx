@@ -77,13 +77,7 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
     .join(" ");
 
   const content = (
-    // biome-ignore lint/a11y/useSemanticElements: switching to <aside> would change the rendered markup users style against.
-    <div
-      className={classes}
-      style={style}
-      role="complementary"
-      aria-label={title || undefined}
-    >
+    <aside className={classes} style={style} aria-label={title || undefined}>
       <div className="smartbanner-container">
         <button
           type="button"
@@ -93,7 +87,7 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
         >
           &times;
         </button>
-        {/* Same markup as v1, so custom CSS keeps working. */}
+        {/* Same class names and inner markup as v1, so custom CSS keeps working. */}
         <span
           className="smartbanner-icon"
           style={icon ? { backgroundImage: cssUrl(icon) } : undefined}
@@ -115,7 +109,7 @@ export const SmartBanner: React.FC<SmartBannerProps> = ({
           </a>
         </div>
       </div>
-    </div>
+    </aside>
   );
 
   if (withPortal) {
