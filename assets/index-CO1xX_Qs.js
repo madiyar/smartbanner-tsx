@@ -69,7 +69,7 @@ export function MyBanner() {
       <button onClick={banner.close}>{banner.t.close}</button>
     </div>
   );
-}`,st=`npx shadcn@latest add https://madiyar.github.io/smartbanner-tsx/r/smart-banner.json`,ct=`import { SmartBanner } from "@/components/smart-banner";
+}`,st=`npx shadcn@latest add https://smartbanner-tsx.js.org/r/smart-banner.json`,ct=`import { SmartBanner } from "@/components/smart-banner";
 
 <SmartBanner
   title="YouTube"
