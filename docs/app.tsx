@@ -100,8 +100,7 @@ export function MyBanner() {
   );
 }`;
 
-const SHADCN_URL =
-  "https://madiyar.github.io/smartbanner-tsx/r/smart-banner.json";
+const SHADCN_URL = "https://smartbanner-tsx.js.org/r/smart-banner.json";
 
 const SHADCN_INSTALL = `npx shadcn@latest add ${SHADCN_URL}`;
 
