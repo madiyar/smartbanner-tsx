@@ -2,7 +2,7 @@
 
 **Smart App Banner for React 18/19** — a lightweight, zero-dependency component that promotes your iOS and Android apps on mobile websites. SSR-safe, typed, and easy to make your own with CSS variables or a headless hook.
 
-> 🎯 Live playground: [madiyar.github.io/smartbanner-tsx](https://madiyar.github.io/smartbanner-tsx)
+> 🎯 Live playground: [smartbanner-tsx.js.org](https://smartbanner-tsx.js.org)
 > 🙏 Inspired by [react-smartbanner](https://www.npmjs.com/package/react-smartbanner)
 
 [![npm version](https://img.shields.io/npm/v/smartbanner-tsx.svg)](https://www.npmjs.com/package/smartbanner-tsx) [![license](https://img.shields.io/npm/l/smartbanner-tsx.svg)](https://www.npmjs.com/package/smartbanner-tsx) [![size](https://img.shields.io/bundlephobia/minzip/smartbanner-tsx)](https://bundlephobia.com/package/smartbanner-tsx)
@@ -135,7 +135,7 @@ Override them globally, per platform (`.smartbanner-ios`, `.smartbanner-android`
 | `--smartbanner-z-index` | Stacking order |
 | `--smartbanner-max-width` | Max width of the content |
 
-The [playground](https://madiyar.github.io/smartbanner-tsx#playground) generates these for you.
+The [playground](https://smartbanner-tsx.js.org/#playground) generates these for you.
 
 ### 3. Headless hook
 
@@ -167,7 +167,7 @@ export function MyBanner() {
 Using [shadcn/ui](https://ui.shadcn.com)? Add a Tailwind version of the banner that uses your theme tokens and `Button`:
 
 ```bash
-npx shadcn@latest add https://madiyar.github.io/smartbanner-tsx/r/smart-banner.json
+npx shadcn@latest add https://smartbanner-tsx.js.org/r/smart-banner.json
 ```
 
 It installs `components/smart-banner.tsx`, a small component on top of `useSmartBanner()` from this package. You own the markup; detection, store links and cookies still come from `smartbanner-tsx`, so `npm update` brings in fixes. It takes the same options as the hook, plus `placement` and `className`:
@@ -227,7 +227,7 @@ TypeScript, zero runtime dependencies, React 18 and 19 support, SSR-safe, CSS va
 
 ## For AI assistants
 
-LLM-friendly docs: [llms.txt](https://madiyar.github.io/smartbanner-tsx/llms.txt) and [llms-full.txt](https://madiyar.github.io/smartbanner-tsx/llms-full.txt).
+LLM-friendly docs: [llms.txt](https://smartbanner-tsx.js.org/llms.txt) and [llms-full.txt](https://smartbanner-tsx.js.org/llms-full.txt).
 
 ## Development
 

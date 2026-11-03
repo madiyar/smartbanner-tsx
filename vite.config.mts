@@ -5,10 +5,10 @@ import { defineConfig } from "vite";
 const src = (file: string) =>
   fileURLToPath(new URL(`./src/${file}`, import.meta.url));
 
-export default defineConfig(({ command, isPreview }) => ({
+export default defineConfig(() => ({
   root: "docs",
-  // GitHub Pages serves the site from /smartbanner-tsx/.
-  base: command === "build" || isPreview ? "/smartbanner-tsx/" : "/",
+  // Served from the root of smartbanner-tsx.js.org.
+  base: "/",
   resolve: {
     // The demo imports the library by its package name, exactly like users do.
     alias: [
