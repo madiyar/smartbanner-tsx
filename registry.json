@@ -1,7 +1,7 @@
 {
   "$schema": "https://ui.shadcn.com/schema/registry.json",
   "name": "smartbanner-tsx",
-  "homepage": "https://madiyar.github.io/smartbanner-tsx",
+  "homepage": "https://smartbanner-tsx.js.org",
   "items": [
     {
       "name": "smart-banner",
@@ -16,7 +16,7 @@
           "type": "registry:component"
         }
       ],
-      "docs": "Pass your app IDs with the appId prop or add the apple-itunes-app / google-play-app meta tags. Preview on desktop with force=\"ios\" or force=\"android\". Docs: https://madiyar.github.io/smartbanner-tsx/#shadcn"
+      "docs": "Pass your app IDs with the appId prop or add the apple-itunes-app / google-play-app meta tags. Preview on desktop with force=\"ios\" or force=\"android\". Docs: https://smartbanner-tsx.js.org/#shadcn"
     }
   ]
 }

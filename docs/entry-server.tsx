@@ -3,7 +3,7 @@ import pkg from "../package.json";
 import App from "./app";
 import { FAQ } from "./lib/api";
 
-const SITE = "https://madiyar.github.io/smartbanner-tsx/";
+const SITE = "https://smartbanner-tsx.js.org/";
 
 /** Renders the page to HTML at build time, so crawlers and AI tools see the content. */
 export function render(): string {
