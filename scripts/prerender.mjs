@@ -37,15 +37,38 @@ try {
   );
   console.log("Prerendered build/index.html");
 
-  // Full docs for AI tools, always in sync with the README and migration guide.
+  // Full docs for AI tools, always in sync with the README, the site's
+  // reference tables (the README keeps only the short version) and the migration guide.
   const read = (name) => readFile(new URL(`../${name}`, import.meta.url), "utf8");
-  const [readme, migration] = await Promise.all([
+  const [readme, migration, api] = await Promise.all([
     read("README.md"),
     read("MIGRATION.md"),
+    vite.ssrLoadModule("/lib/api.ts"),
   ]);
+  const table = (header, rows) =>
+    [
+      `| ${header.join(" | ")} |`,
+      `| ${header.map(() => "---").join(" | ")} |`,
+      ...rows.map((cells) => `| ${cells.map((c) => c.replace(/\|/g, "\\|")).join(" | ")} |`),
+    ].join("\n");
+  const reference = [
+    "# Reference",
+    "## CSS variables",
+    table(
+      ["Variable", "What it changes"],
+      api.CSS_VARS.map((v) => [`\`${v.name}\``, v.description]),
+    ),
+    "## useSmartBanner() result",
+    table(
+      ["Field", "Type", "Description"],
+      api.HOOK_FIELDS.map((f) => [`\`${f.name}\``, `\`${f.type}\``, f.description]),
+    ),
+    "## FAQ",
+    api.FAQ.map((item) => `**${item.q}**\n${item.a}`).join("\n\n"),
+  ].join("\n\n");
   await writeFile(
     new URL("../build/llms-full.txt", import.meta.url),
-    `${readme.trim()}\n\n---\n\n${migration.trim()}\n`,
+    `${readme.trim()}\n\n---\n\n${reference}\n\n---\n\n${migration.trim()}\n`,
   );
   console.log("Wrote build/llms-full.txt");
 } finally {
