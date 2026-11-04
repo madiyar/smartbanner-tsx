@@ -5,7 +5,7 @@
 > 🎯 Live playground: [smartbanner-tsx.js.org](https://smartbanner-tsx.js.org)
 > 🙏 Inspired by [react-smartbanner](https://www.npmjs.com/package/react-smartbanner)
 
-[![npm version](https://img.shields.io/npm/v/smartbanner-tsx.svg)](https://www.npmjs.com/package/smartbanner-tsx) [![license](https://img.shields.io/npm/l/smartbanner-tsx.svg)](https://www.npmjs.com/package/smartbanner-tsx) [![size](https://img.shields.io/bundlephobia/minzip/smartbanner-tsx)](https://bundlephobia.com/package/smartbanner-tsx)
+[![npm version](https://img.shields.io/npm/v/smartbanner-tsx.svg)](https://www.npmjs.com/package/smartbanner-tsx) [![license](https://img.shields.io/npm/l/smartbanner-tsx.svg)](https://www.npmjs.com/package/smartbanner-tsx) [![size](https://deno.bundlejs.com/?q=smartbanner-tsx&config=%7B%22esbuild%22%3A%7B%22external%22%3A%5B%22react%22%2C%22react-dom%22%2C%22react%2Fjsx-runtime%22%5D%7D%7D&badge)](https://bundlejs.com/?q=smartbanner-tsx&config=%7B%22esbuild%22%3A%7B%22external%22%3A%5B%22react%22%2C%22react-dom%22%2C%22react%2Fjsx-runtime%22%5D%7D%7D)
 
 ## Features
 
@@ -61,22 +61,13 @@ No meta tags? Pass the IDs and icon as props instead (props win when both are se
 
 ### Next.js (App Router)
 
-The package ships with `"use client"`, so you can render it straight from `app/layout.tsx`:
+The package ships with `"use client"`, so you can render it straight from `app/layout.tsx`, inside `<body>`:
 
 ```tsx
-import { SmartBanner } from "smartbanner-tsx";
-import "smartbanner-tsx/style.css";
-
-export default function RootLayout({ children }: { children: React.ReactNode }) {
-  return (
-    <html lang="en">
-      <body>
-        <SmartBanner title="YouTube" appId={{ ios: "544007664", android: "com.google.android.youtube" }} />
-        {children}
-      </body>
-    </html>
-  );
-}
+<body>
+  <SmartBanner title="YouTube" appId={{ ios: "544007664", android: "com.google.android.youtube" }} />
+  {children}
+</body>
 ```
 
 ## Upgrading from v1
@@ -120,46 +111,23 @@ Override them globally, per platform (`.smartbanner-ios`, `.smartbanner-android`
 }
 ```
 
-| Variable | What it changes |
-| --- | --- |
-| `--smartbanner-bg` | Background |
-| `--smartbanner-title-color` | Title color |
-| `--smartbanner-text-color` | Author and price color |
-| `--smartbanner-button-bg` / `--smartbanner-button-color` | Button colors |
-| `--smartbanner-button-radius` | Button corner radius |
-| `--smartbanner-close-color` | Close icon color |
-| `--smartbanner-icon-size` / `--smartbanner-icon-radius` | Icon size and radius |
-| `--smartbanner-height` | Banner height and page offset (set on `:root`) |
-| `--smartbanner-font` | Font family |
-| `--smartbanner-border` / `--smartbanner-shadow` | Border and shadow |
-| `--smartbanner-z-index` | Stacking order |
-| `--smartbanner-max-width` | Max width of the content |
-
-The [playground](https://smartbanner-tsx.js.org/#playground) generates these for you.
+See [all variables](https://smartbanner-tsx.js.org/#css-variables), or let the [playground](https://smartbanner-tsx.js.org/#playground) generate them for you.
 
 ### 3. Headless hook
 
-Use the logic and render your own markup:
+Use the logic and render your own markup ([all fields](https://smartbanner-tsx.js.org/#hook-result)):
 
 ```tsx
-import { useSmartBanner } from "smartbanner-tsx";
+const banner = useSmartBanner({ appId: { ios: "544007664", android: "com.google.android.youtube" } });
 
-export function MyBanner() {
-  const banner = useSmartBanner({
-    appId: { ios: "544007664", android: "com.google.android.youtube" },
-  });
+if (!banner.visible) return null;
 
-  if (!banner.visible) return null;
-
-  return (
-    <div className="my-banner">
-      <img src={banner.icon} alt="" />
-      <span>{banner.description}</span>
-      <a href={banner.link} onClick={banner.install}>{banner.t.button}</a>
-      <button onClick={banner.close}>{banner.t.close}</button>
-    </div>
-  );
-}
+return (
+  <div className="my-banner">
+    <a href={banner.link} onClick={banner.install}>{banner.t.button}</a>
+    <button onClick={banner.close}>{banner.t.close}</button>
+  </div>
+);
 ```
 
 ### 4. shadcn/ui
@@ -170,17 +138,7 @@ Using [shadcn/ui](https://ui.shadcn.com)? Add a Tailwind version of the banner t
 npx shadcn@latest add https://smartbanner-tsx.js.org/r/smart-banner.json
 ```
 
-It installs `components/smart-banner.tsx`, a small component on top of `useSmartBanner()` from this package. You own the markup; detection, store links and cookies still come from `smartbanner-tsx`, so `npm update` brings in fixes. It takes the same options as the hook, plus `placement` and `className`:
-
-```tsx
-import { SmartBanner } from "@/components/smart-banner";
-
-<SmartBanner
-  title="YouTube"
-  author="Google LLC"
-  appId={{ ios: "544007664", android: "com.google.android.youtube" }}
-/>
-```
+It adds `components/smart-banner.tsx` on top of `useSmartBanner()`: you own the markup, detection and cookies stay in the package. [More on the site](https://smartbanner-tsx.js.org/#shadcn).
 
 ## Props
 
@@ -219,33 +177,8 @@ It only targets phones and tablets. Use `force="ios"` or `force="android"` to pr
 **I closed the banner and it doesn't come back.**
 Closing sets the `smartbanner-closed` cookie for `daysHidden` days, tapping the button sets `smartbanner-installed` for `daysReminder` days. Call `resetSmartBanner()` or delete the cookies.
 
-**Can I use my own design?**
-Yes: CSS variables and class names for small changes, `useSmartBanner()` for fully custom markup, or the shadcn/ui component for a Tailwind version you can edit.
-
-**How is it different from react-smartbanner?**
-TypeScript, zero runtime dependencies, React 18 and 19 support, SSR-safe, CSS variables and a headless hook.
-
-## For AI assistants
-
-LLM-friendly docs: [llms.txt](https://smartbanner-tsx.js.org/llms.txt) and [llms-full.txt](https://smartbanner-tsx.js.org/llms-full.txt).
-
-## Development
-
-```bash
-pnpm install
-pnpm dev          # demo with hot reload (imports the library from src/)
-pnpm test         # unit tests
-pnpm typecheck
-pnpm build        # library → dist/
-pnpm build:docs   # shadcn registry → docs/public/r/, then demo → build/
-```
-
-### Releases
-
-- **Library** — `.github/workflows/release.yml` runs [semantic-release](https://semantic-release.gitbook.io) when `src/`, `package.json` or the lockfile change on `main` (or `next` for pre-releases). Version comes from [Conventional Commits](https://www.conventionalcommits.org): `fix:` → patch, `feat:` → minor, `BREAKING CHANGE:` → major.
-- **Demo** — `.github/workflows/deploy-docs.yml` deploys to GitHub Pages when `docs/` changes, after each library release, or manually.
-- Commits scoped `demo`, `docs` or `deps-dev` (e.g. `feat(demo): ...`) never publish a library version.
+More in the [FAQ on the site](https://smartbanner-tsx.js.org/#faq). Docs for AI tools: [llms.txt](https://smartbanner-tsx.js.org/llms.txt), [llms-full.txt](https://smartbanner-tsx.js.org/llms-full.txt).
 
 ## License
 
-MIT — [madiyar](https://madiyar.dev)
+MIT — [madiyar](https://madiyar.dev) · [Contributing](./CONTRIBUTING.md)
